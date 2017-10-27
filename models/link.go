@@ -24,8 +24,10 @@ type Link struct {
 func (l Links) ByType(t string) Links {
 	var ls Links
 
+	ct := convertType(t)
+
 	for _, x := range l {
-		if x.Type == t {
+		if x.Type == ct {
 			ls = append(ls, x)
 		}
 	}
@@ -46,6 +48,19 @@ func (l Links) ByName(n string) Links {
 	return ls
 }
 
+func convertType(t string) string {
+	switch t {
+	case "vdc":
+		return TypesVdc
+	case "catalog":
+		return TypesCatalog
+	case "org-network":
+		return TypesOrgNetwork
+	}
+
+	return ""
+}
+
 // ID : returns the id of the resource
 func (l *Link) ID() string {
 	var prefix string
@@ -61,5 +76,5 @@ func (l *Link) ID() string {
 		prefix = PathOrgNetwork
 	}
 
-	return strings.Trim(p.RawPath, prefix)
+	return strings.Trim(p.RequestURI(), prefix)
 }

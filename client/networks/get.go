@@ -12,10 +12,11 @@ import (
 )
 
 // Get : get a vdc network
-func (v *Networks) Get(vdc, id string) (*models.Network, error) {
+func (v *Networks) Get(id string) (*models.Network, error) {
 	var m models.Network
 
-	path := fmt.Sprintf(apiroute+"%s", vdc, id)
+	path := fmt.Sprintf(apiroute+"%s", id)
+
 	resp, err := v.Conn.Get(path)
 	if err != nil {
 		return nil, err

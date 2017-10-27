@@ -6,7 +6,7 @@ package networks
 
 import "github.com/r3labs/vcloud-go-sdk/connection"
 
-var apiroute = "/api/network"
+var apiroute = "/api/network/"
 
 // Networks ...
 type Networks struct {
