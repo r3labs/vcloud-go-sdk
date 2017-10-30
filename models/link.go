@@ -4,11 +4,6 @@
 
 package models
 
-import (
-	"net/url"
-	"strings"
-)
-
 // Links ....
 type Links []*Link
 
@@ -48,33 +43,7 @@ func (l Links) ByName(n string) Links {
 	return ls
 }
 
-func convertType(t string) string {
-	switch t {
-	case "vdc":
-		return TypesVdc
-	case "catalog":
-		return TypesCatalog
-	case "org-network":
-		return TypesOrgNetwork
-	}
-
-	return ""
-}
-
 // ID : returns the id of the resource
 func (l *Link) ID() string {
-	var prefix string
-
-	p, _ := url.Parse(l.Href)
-
-	switch l.Type {
-	case TypesVdc:
-		prefix = PathVdc
-	case TypesCatalog:
-		prefix = PathCatalog
-	case TypesOrgNetwork:
-		prefix = PathOrgNetwork
-	}
-
-	return strings.Trim(p.RequestURI(), prefix)
+	return trimID(l.Type, l.Href)
 }

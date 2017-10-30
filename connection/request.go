@@ -24,7 +24,7 @@ func (c *Conn) Request(method, path string, data []byte, headers map[string]stri
 
 	err = status(resp.StatusCode)
 	if err != nil {
-		return resp, err
+		return errored(resp, err)
 	}
 
 	return resp, nil

@@ -4,11 +4,15 @@
 
 package models
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+	"strings"
+)
 
 // Task ...
 type Task struct {
 	XMLName       xml.Name `xml:"Task"`
+	ID            string   `xml:"id,attr"`
 	Name          string   `xml:"name,attr"`
 	Href          string   `xml:"href,attr"`
 	OperationName string   `xml:"operationName,attr"`
@@ -21,4 +25,9 @@ type Task struct {
 	User          Link     `xml:"User"`
 	Error         *Error   `xml:"Error"`
 	Organization  Link     `xml:"Organization"`
+}
+
+// GetID : returns the task's trimmed id
+func (t *Task) GetID() string {
+	return strings.Trim(t.ID, "urn:vcloud:task:")
 }

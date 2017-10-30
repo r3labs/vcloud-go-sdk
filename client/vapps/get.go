@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package networks
+package vapps
 
 import (
 	"fmt"
@@ -11,9 +11,9 @@ import (
 	"github.com/r3labs/vcloud-go-sdk/models"
 )
 
-// Get : get a vdc network
-func (n *Networks) Get(id string) (*models.Network, error) {
-	var m models.Network
+// Get : get a vapp
+func (n *VApps) Get(id string) (*models.VApp, error) {
+	var m models.VApp
 
 	path := fmt.Sprintf(apiroute+"%s", id)
 

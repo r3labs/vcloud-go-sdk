@@ -2,11 +2,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package connection
+package catalogs
 
-import "net/http"
+import "github.com/r3labs/vcloud-go-sdk/connection"
 
-// Delete : delete a resource on vcloud api
-func (c *Conn) Delete(path string) (*http.Response, error) {
-	return c.Request("DELETE", path, nil, nil)
+var apiroute = "/api/catalog/"
+
+// Catalogs ...
+type Catalogs struct {
+	Conn *connection.Conn
 }

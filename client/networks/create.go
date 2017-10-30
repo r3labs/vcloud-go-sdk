@@ -5,24 +5,28 @@
 package networks
 
 import (
+	"encoding/xml"
 	"fmt"
 
 	"github.com/r3labs/vcloud-go-sdk/connection"
 	"github.com/r3labs/vcloud-go-sdk/models"
 )
 
-// Get : get a vdc network
-func (n *Networks) Get(id string) (*models.Network, error) {
-	var m models.Network
+// Create : create a vdc network
+func (n *Networks) Create(vdc string, network *models.Network) error {
+	path := fmt.Sprintf("/api/admin/vdc/%s/networks", vdc)
 
-	path := fmt.Sprintf(apiroute+"%s", id)
-
-	resp, err := n.Conn.Get(path)
+	data, err := xml.Marshal(network)
 	if err != nil {
-		return nil, err
+		return err
+	}
+
+	resp, err := n.Conn.Post(path, models.TypesOrgVdcNetwork, data)
+	if err != nil {
+		return err
 	}
 
 	defer resp.Body.Close()
 
-	return &m, connection.ReadXML(resp.Body, &m)
+	return connection.ReadXML(resp.Body, network)
 }

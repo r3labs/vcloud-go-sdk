@@ -6,7 +6,8 @@ package connection
 
 import "net/http"
 
-// Post : post data to ernest api
-func (c *Conn) Post(path string, data []byte) (*http.Response, error) {
-	return c.Request("POST", path, data, nil)
+// Post : post data to vcloud api
+func (c *Conn) Post(path string, ctype string, data []byte) (*http.Response, error) {
+	headers := map[string]string{"Content-Type": ctype}
+	return c.Request("POST", path, data, headers)
 }

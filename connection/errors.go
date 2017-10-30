@@ -5,9 +5,18 @@
 package connection
 
 import (
+	"encoding/xml"
 	"errors"
 	"net/http"
 )
+
+// Error ...
+type Error struct {
+	XMLName        xml.Name `xml:"Error"`
+	MinorErrorCode string   `xml:"minorErrorCode,attr"`
+	MajorErrorCode string   `xml:"majorErrorCode,attr"`
+	Message        string   `xml:"message,attr"`
+}
 
 func status(s int) error {
 	switch s {
@@ -26,4 +35,19 @@ func status(s int) error {
 	default:
 		return errors.New("ernest unknown error")
 	}
+}
+
+func errored(resp *http.Response, fallback error) (*http.Response, error) {
+	var e Error
+
+	err := ReadXML(resp.Body, &e)
+	if err != nil {
+		return resp, err
+	}
+
+	if e.Message == "" {
+		return resp, fallback
+	}
+
+	return resp, errors.New(e.Message)
 }

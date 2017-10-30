@@ -11,18 +11,18 @@ import (
 	"github.com/r3labs/vcloud-go-sdk/models"
 )
 
-// Get : get a vdc network
-func (n *Networks) Get(id string) (*models.Network, error) {
-	var m models.Network
+// Delete : Delete a vdc network
+func (n *Networks) Delete(id string) (*models.Task, error) {
+	var t models.Task
 
-	path := fmt.Sprintf(apiroute+"%s", id)
+	path := fmt.Sprintf("/api/admin/network/%s", id)
 
-	resp, err := n.Conn.Get(path)
+	resp, err := n.Conn.Delete(path)
 	if err != nil {
 		return nil, err
 	}
 
 	defer resp.Body.Close()
 
-	return &m, connection.ReadXML(resp.Body, &m)
+	return &t, connection.ReadXML(resp.Body, &t)
 }

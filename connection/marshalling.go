@@ -6,6 +6,7 @@ package connection
 
 import (
 	"encoding/xml"
+	"fmt"
 	"io"
 	"io/ioutil"
 )
@@ -18,7 +19,7 @@ func ReadXML(body io.ReadCloser, x interface{}) error {
 		return err
 	}
 
-	//	fmt.Println(string(data))
+	fmt.Println(string(data))
 
 	return xml.Unmarshal(data, x)
 }

@@ -2,22 +2,30 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package networks
+package vapps
 
 import (
+	"encoding/xml"
 	"fmt"
 
 	"github.com/r3labs/vcloud-go-sdk/connection"
 	"github.com/r3labs/vcloud-go-sdk/models"
 )
 
-// Get : get a vdc network
-func (n *Networks) Get(id string) (*models.Network, error) {
-	var m models.Network
+// Create : create a vapp
+func (n *VApps) Create(vdc string, params *models.InstantiateVAppParams) (*models.VApp, error) {
+	var m models.VApp
 
-	path := fmt.Sprintf(apiroute+"%s", id)
+	params.SetXMLNS()
 
-	resp, err := n.Conn.Get(path)
+	path := fmt.Sprintf("/api/vdc/%s/action/instantiateVAppTemplate", vdc)
+
+	data, err := xml.Marshal(params)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := n.Conn.Post(path, models.TypesInstantiateVAppTemplateParams, data)
 	if err != nil {
 		return nil, err
 	}

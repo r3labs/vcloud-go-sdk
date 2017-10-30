@@ -6,7 +6,7 @@ package connection
 
 import "net/http"
 
-// Get : get response from ernest api
+// Get : get response from vcloud api
 func (c *Conn) Get(path string) (*http.Response, error) {
 	return c.Request("GET", path, nil, nil)
 }

@@ -4,21 +4,61 @@
 
 package models
 
+import (
+	"net/url"
+	"strings"
+)
+
 const (
-	TypeAdminCatalog                  = "application/vnd.vmware.admin.catalog+xml"
-	TypeAdminOrganization             = "application/vnd.vmware.admin.organization+xml"
-	TypeAminVdcTemplates              = "application/vnd.vmware.admin.vdcTemplates+xml"
-	TypesCatalog                      = "application/vnd.vmware.vcloud.catalog+xml"
-	TypesControlAccess                = "application/vnd.vmware.vcloud.controlAccess+xml"
-	TypesHybridOrg                    = "application/vnd.vmware.vcloud.hybridOrg+xml"
-	TypesInstantiateVdcTemplateParams = "application/vnd.vmware.vcloud.instantiateVdcTemplateParams+xml"
-	TypesMetadata                     = "application/vnd.vmware.vcloud.metadata+xml"
-	TypesOrgNetwork                   = "application/vnd.vmware.vcloud.orgNetwork+xml"
-	TypesSupportedSystemsInfo         = "application/vnd.vmware.vcloud.supportedSystemsInfo+xml"
-	TypesTaskList                     = "application/vnd.vmware.vcloud.tasksList+xml"
-	TypesVdc                          = "application/vnd.vmware.vcloud.vdc+xml"
+	TypeAdminCatalog                   = "application/vnd.vmware.admin.catalog+xml"
+	TypeAdminOrganization              = "application/vnd.vmware.admin.organization+xml"
+	TypeAminVdcTemplates               = "application/vnd.vmware.admin.vdcTemplates+xml"
+	TypesCatalog                       = "application/vnd.vmware.vcloud.catalog+xml"
+	TypesControlAccess                 = "application/vnd.vmware.vcloud.controlAccess+xml"
+	TypesHybridOrg                     = "application/vnd.vmware.vcloud.hybridOrg+xml"
+	TypesInstantiateVAppTemplateParams = "application/vnd.vmware.vcloud.instantiateVAppTemplateParams+xml"
+	TypesInstantiateVdcTemplateParams  = "application/vnd.vmware.vcloud.instantiateVdcTemplateParams+xml"
+	TypesMetadata                      = "application/vnd.vmware.vcloud.metadata+xml"
+	TypesEdgeGateway                   = "application/vnd.vmware.admin.edgeGateway+xml"
+	TypesNetwork                       = "application/vnd.vmware.vcloud.network+xml"
+	TypesOrgNetwork                    = "application/vnd.vmware.vcloud.orgNetwork+xml"
+	TypesOrgVdcNetwork                 = "application/vnd.vmware.vcloud.orgVdcNetwork+xml"
+	TypesSupportedSystemsInfo          = "application/vnd.vmware.vcloud.supportedSystemsInfo+xml"
+	TypesTaskList                      = "application/vnd.vmware.vcloud.tasksList+xml"
+	TypesVAppTemplate                  = "application/vnd.vmware.vcloud.vAppTemplate+xml"
+	TypesVdc                           = "application/vnd.vmware.vcloud.vdc+xml"
 
 	PathVdc        = "/api/org"
 	PathOrgNetwork = "/api/network"
 	PathCatalog    = "/api/catalog"
 )
+
+func convertType(t string) string {
+	switch t {
+	case "vdc":
+		return TypesVdc
+	case "catalog":
+		return TypesCatalog
+	case "org-network":
+		return TypesOrgNetwork
+	}
+
+	return ""
+}
+
+func trimID(t, href string) string {
+	var prefix string
+
+	p, _ := url.Parse(href)
+
+	switch t {
+	case TypesVdc:
+		prefix = PathVdc
+	case TypesCatalog:
+		prefix = PathCatalog
+	case TypesOrgNetwork:
+		prefix = PathOrgNetwork
+	}
+
+	return strings.Trim(p.RequestURI(), prefix)
+}

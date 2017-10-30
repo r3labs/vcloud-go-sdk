@@ -4,9 +4,12 @@
 
 package connection
 
-import "net/http"
+// Reload : reload a model
+func (c *Conn) Reload(path string, m interface{}) error {
+	resp, err := c.Request("GET", path, nil, nil)
+	if err != nil {
+		return nil
+	}
 
-// Delete : delete a resource on vcloud api
-func (c *Conn) Delete(path string) (*http.Response, error) {
-	return c.Request("DELETE", path, nil, nil)
+	return ReadXML(resp.Body, m)
 }
