@@ -6,6 +6,7 @@ package client
 
 import (
 	"github.com/r3labs/vcloud-go-sdk/client/catalogs"
+	"github.com/r3labs/vcloud-go-sdk/client/gateways"
 	"github.com/r3labs/vcloud-go-sdk/client/networks"
 	"github.com/r3labs/vcloud-go-sdk/client/orgs"
 	"github.com/r3labs/vcloud-go-sdk/client/tasks"
@@ -22,8 +23,9 @@ type Client struct {
 	Vdcs     *vdcs.Vdcs
 	VApps    *vapps.VApps
 	Tasks    *tasks.Tasks
-	Catalogs *catalogs.Catalogs
+	Gateways *gateways.Gateways
 	Networks *networks.Networks
+	Catalogs *catalogs.Catalogs
 }
 
 // New : creates a new client
@@ -36,7 +38,8 @@ func New(cfg *config.Config) *Client {
 		Vdcs:     &vdcs.Vdcs{Conn: c},
 		VApps:    &vapps.VApps{Conn: c},
 		Tasks:    &tasks.Tasks{Conn: c},
-		Catalogs: &catalogs.Catalogs{Conn: c},
+		Gateways: &gateways.Gateways{Conn: c},
 		Networks: &networks.Networks{Conn: c},
+		Catalogs: &catalogs.Catalogs{Conn: c},
 	}
 }

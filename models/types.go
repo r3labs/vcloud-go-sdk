@@ -27,8 +27,10 @@ const (
 	TypesTaskList                      = "application/vnd.vmware.vcloud.tasksList+xml"
 	TypesVAppTemplate                  = "application/vnd.vmware.vcloud.vAppTemplate+xml"
 	TypesVdc                           = "application/vnd.vmware.vcloud.vdc+xml"
+	TypesOrg                           = "application/vnd.vmware.vcloud.org+xml"
 
-	PathVdc        = "/api/org"
+	PathOrg        = "/api/org"
+	PathVdc        = "/api/vdc"
 	PathOrgNetwork = "/api/network"
 	PathCatalog    = "/api/catalog"
 )
@@ -52,6 +54,8 @@ func trimID(t, href string) string {
 	p, _ := url.Parse(href)
 
 	switch t {
+	case TypesOrg:
+		prefix = PathOrg
 	case TypesVdc:
 		prefix = PathVdc
 	case TypesCatalog:

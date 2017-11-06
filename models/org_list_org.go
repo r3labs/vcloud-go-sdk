@@ -9,7 +9,11 @@ import "encoding/xml"
 // OrgListOrg ...
 type OrgListOrg struct {
 	XMLName xml.Name `xml:"Org"`
-	ID      string   `xml:"id,attr"`
 	Name    string   `xml:"name,attr"`
 	Href    string   `xml:"href,attr"`
+}
+
+// ID : returns the org's id
+func (o *OrgListOrg) ID() string {
+	return trimID(TypesOrg, o.Href)
 }

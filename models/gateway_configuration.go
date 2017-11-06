@@ -11,14 +11,6 @@ type GatewayConfiguration struct {
 	XMLName                     xml.Name `xml:"Configuration"`
 	GatewayBackingConfiguration string   `xml:"GatewayBackingConfiguration,value"`
 	GatewayInterfaces           struct {
-		Interfaces []struct {
-			Name                string `xml:"Name,value"`
-			Network             Link   `xml:"Network"`
-			SubnetParticipation struct {
-				Gateway   string `xml:"Gateway,value"`
-				Netmask   string `xml:"Netmask,value"`
-				IPAddress string `xml:"IpAddress,value"`
-			} `xml:"SubnetParticipation"`
-		} `xml:"GatewayInterface"`
+		Interfaces []*GatewayInterface
 	} `xml:"GatewayInterfaces"`
 }

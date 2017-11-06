@@ -2,13 +2,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package connection
+package gateways
 
-import (
-	"net/http"
-)
+import "github.com/r3labs/vcloud-go-sdk/connection"
 
-// Get : get response from vcloud api
-func (c *Conn) Get(path string) (*http.Response, error) {
-	return c.Request("GET", path, nil, nil)
+var apiroute = "/api/admin/edgeGateway/"
+
+// Gateways ...
+type Gateways struct {
+	Conn *connection.Conn
 }
