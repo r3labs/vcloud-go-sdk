@@ -23,5 +23,5 @@ type Vdc struct {
 
 // GetID : returns the vdc's trimmed id
 func (v *Vdc) GetID() string {
-	return strings.Trim(v.ID, "urn:vcloud:vdc:")
+	return strings.TrimPrefix(v.ID, "urn:vcloud:vdc:")
 }

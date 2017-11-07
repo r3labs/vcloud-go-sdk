@@ -4,8 +4,12 @@
 
 package models
 
+import "encoding/xml"
+
 // EdgeGatewayServiceConfiguration ...
 type EdgeGatewayServiceConfiguration struct {
-	FirewallService *FirewallService `xml:"FirewallService"`
-	NatService      *NatService      `xml:"NatService"`
+	XMLName             xml.Name             `xml:"http://www.vmware.com/vcloud/v1.5 EdgeGatewayServiceConfiguration"`
+	NatService          *NatService          `xml:"NatService"`
+	FirewallService     *FirewallService     `xml:"FirewallService"`
+	LoadBalancerService *LoadBalancerService `xml:"LoadBalancerService"`
 }

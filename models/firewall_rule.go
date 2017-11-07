@@ -6,42 +6,20 @@ package models
 
 import "encoding/xml"
 
+// FirewallRule ...
 type FirewallRule struct {
-	XMLName              xml.Name      `xml:"FirewallRule"`
-	ID                   string        `xml:"Id"`
-	Enabled              bool          `xml:"IsEnabled"`
-	MatchOnTranslate     bool          `xml:"MatchOnTranslate"`
-	Policy               string        `xml:"Policy"`
-	Protocols            []interface{} `xml:"Protocols"`
-	Port                 string        `xml:"Port"`
-	SourcePort           string        `xml:"SourcePort"`
-	SourceIp             string        `xml:"SourceIP"`
-	DestinationIp        string        `xml:"DestinationIP"`
-	SourcePortRange      string        `xml:"SourcePortRange"`
-	DestinationPortRange string        `xml:"DestinationPortRange"`
-	EnableLogging        bool          `xml:"EnableLogging"`
+	XMLName              xml.Name           `xml:"FirewallRule"`
+	ID                   string             `xml:"Id"`
+	Enabled              bool               `xml:"IsEnabled"`
+	Description          string             `xml:"Description,omitempty"`
+	MatchOnTranslate     bool               `xml:"MatchOnTranslate"`
+	Policy               string             `xml:"Policy"`
+	Protocols            *FirewallProtocols `xml:"Protocols"`
+	Port                 string             `xml:"Port"`
+	DestinationPortRange string             `xml:"DestinationPortRange"`
+	DestinationIP        string             `xml:"DestinationIp"`
+	SourcePort           string             `xml:"SourcePort"`
+	SourcePortRange      string             `xml:"SourcePortRange"`
+	SourceIP             string             `xml:"SourceIp"`
+	EnableLogging        bool               `xml:"EnableLogging"`
 }
-
-/*
-<FirewallService>
-                <IsEnabled>true</IsEnabled>
-                <DefaultAction>drop</DefaultAction>
-                <LogDefaultAction>false</LogDefaultAction>
-                <FirewallRule>
-                    <Id>1</Id>
-                    <IsEnabled>true</IsEnabled>
-                    <MatchOnTranslate>false</MatchOnTranslate>
-                    <Policy>allow</Policy>
-                    <Protocols>
-                        <Any>true</Any>
-                    </Protocols>
-                    <Port>-1</Port>
-                    <DestinationPortRange>Any</DestinationPortRange>
-                    <DestinationIp>internal</DestinationIp>
-                    <SourcePort>-1</SourcePort>
-                    <SourcePortRange>Any</SourcePortRange>
-                    <SourceIp>internal</SourceIp>
-                    <EnableLogging>false</EnableLogging>
-                </FirewallRule>
-            </FirewallService>
-*/

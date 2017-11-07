@@ -4,14 +4,37 @@
 
 package models
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+	"strings"
+)
 
 // EdgeGateway ...
 type EdgeGateway struct {
-	XMLName       xml.Name `xml:"EdgeGateway"`
-	ID            string   `xml:"id,attr"`
-	Name          string   `xml:"name,attr"`
-	Href          string   `xml:"href,attr"`
-	Configuration *GatewayConfiguration
-	Links         Links `xml:"Link"`
+	XMLName       xml.Name              `xml:"http://www.vmware.com/vcloud/v1.5 EdgeGateway"`
+	ID            string                `xml:"id,attr"`
+	Name          string                `xml:"name,attr"`
+	Href          string                `xml:"href,attr"`
+	Configuration *GatewayConfiguration `xml:"Configuration"`
+	Links         Links                 `xml:"Link"`
+}
+
+// GetID : returns the gateway's trimmed id
+func (e *EdgeGateway) GetID() string {
+	return strings.TrimPrefix(e.ID, "urn:vcloud:gateway:")
+}
+
+// Firewall : returns the firewall service configuration
+func (e *EdgeGateway) Firewall() *FirewallService {
+	return e.Configuration.GatewayServiceConfiguration.FirewallService
+}
+
+// Nat : returns the nat service configuration
+func (e *EdgeGateway) Nat() *NatService {
+	return e.Configuration.GatewayServiceConfiguration.NatService
+}
+
+// LoadBalancer : returns the loadbalancer service configuration
+func (e *EdgeGateway) LoadBalancer() *LoadBalancerService {
+	return e.Configuration.GatewayServiceConfiguration.LoadBalancerService
 }

@@ -8,9 +8,13 @@ import "encoding/xml"
 
 // GatewayConfiguration ...
 type GatewayConfiguration struct {
-	XMLName                     xml.Name `xml:"Configuration"`
-	GatewayBackingConfiguration string   `xml:"GatewayBackingConfiguration,value"`
+	XMLName                     xml.Name                         `xml:"Configuration"`
+	GatewayBackingConfiguration string                           `xml:"GatewayBackingConfig"`
+	GatewayServiceConfiguration *EdgeGatewayServiceConfiguration `xml:"EdgeGatewayServiceConfiguration"`
 	GatewayInterfaces           struct {
-		Interfaces []*GatewayInterface
+		Interfaces []*GatewayInterface `xml:"GatewayInterface"`
 	} `xml:"GatewayInterfaces"`
+	HAEnabled                  bool `xml:"HaEnabled"`
+	UseDefaultRouteForDNSRelay bool `xml:"UseDefaultRouteForDnsRelay"`
+	AdvancedNetworkingEnabled  bool `xml:"AdvancedNetworkingEnabled"`
 }

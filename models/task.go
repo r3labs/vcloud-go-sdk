@@ -29,5 +29,5 @@ type Task struct {
 
 // GetID : returns the task's trimmed id
 func (t *Task) GetID() string {
-	return strings.Trim(t.ID, "urn:vcloud:task:")
+	return strings.TrimPrefix(t.ID, "urn:vcloud:task:")
 }

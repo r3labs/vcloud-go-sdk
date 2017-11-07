@@ -32,7 +32,7 @@ type Network struct {
 
 // GetID : returns the networks's trimmed id
 func (n *Network) GetID() string {
-	return strings.Trim(n.ID, "urn:vcloud:network:")
+	return strings.TrimPrefix(n.ID, "urn:vcloud:network:")
 }
 
 // GetTasks ...

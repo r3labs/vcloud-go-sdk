@@ -9,7 +9,7 @@ type Links []*Link
 
 // Link ...
 type Link struct {
-	Rel  string `xml:"rel,attr"`
+	Rel  string `xml:"rel,attr,omitempty"`
 	Type string `xml:"type,attr"`
 	Name string `xml:"name,attr"`
 	Href string `xml:"href,attr"`

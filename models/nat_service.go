@@ -9,5 +9,6 @@ import "encoding/xml"
 // NatService ...
 type NatService struct {
 	XMLName  xml.Name   `xml:"NatService"`
+	Enabled  bool       `xml:"IsEnabled"`
 	NatRules []*NatRule `xml:"NatRule"`
 }
