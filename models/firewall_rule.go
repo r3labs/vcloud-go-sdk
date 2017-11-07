@@ -11,14 +11,12 @@ type FirewallRule struct {
 	XMLName              xml.Name           `xml:"FirewallRule"`
 	ID                   string             `xml:"Id"`
 	Enabled              bool               `xml:"IsEnabled"`
-	Description          string             `xml:"Description,omitempty"`
 	MatchOnTranslate     bool               `xml:"MatchOnTranslate"`
+	Description          string             `xml:"Description,omitempty"`
 	Policy               string             `xml:"Policy"`
 	Protocols            *FirewallProtocols `xml:"Protocols"`
-	Port                 string             `xml:"Port"`
 	DestinationPortRange string             `xml:"DestinationPortRange"`
 	DestinationIP        string             `xml:"DestinationIp"`
-	SourcePort           string             `xml:"SourcePort"`
 	SourcePortRange      string             `xml:"SourcePortRange"`
 	SourceIP             string             `xml:"SourceIp"`
 	EnableLogging        bool               `xml:"EnableLogging"`

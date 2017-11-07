@@ -11,6 +11,8 @@ type FirewallProtocols struct {
 	XMLName xml.Name `xml:"Protocols"`
 	Any     *bool    `xml:"Any"`
 	ICMP    *bool    `xml:"Icmp"`
+	TCP     *bool    `xml:"Tcp"`
+	UDP     *bool    `xml:"Udp"`
 	Other   *string  `xml:"Other"`
 }
 
@@ -21,6 +23,10 @@ func (f *FirewallProtocols) Set(protocol string) *FirewallProtocols {
 	switch protocol {
 	case "any":
 		f.Any = &v
+	case "tcp":
+		f.TCP = &v
+	case "udp":
+		f.UDP = &v
 	case "icmp":
 		f.ICMP = &v
 	default:

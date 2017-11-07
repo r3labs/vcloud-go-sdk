@@ -13,5 +13,5 @@ type LoadBalancerPool struct {
 	Name        string                   `xml:"Name"`
 	Description string                   `xml:"Description"`
 	ServicePort *LoadBalancerServicePort `xml:"ServicePort"`
-	Member      *LoadBalancerMember      `xml:"Member"`
+	Members     []*LoadBalancerMember    `xml:"Member"`
 }
