@@ -6,7 +6,7 @@ package vapps
 
 import "github.com/r3labs/vcloud-go-sdk/connection"
 
-var apiroute = "/api/vapp/"
+var apiroute = "/api/vApp/"
 
 // VApps ...
 type VApps struct {

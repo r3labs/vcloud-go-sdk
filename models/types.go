@@ -27,11 +27,13 @@ const (
 	TypesSupportedSystemsInfo            = "application/vnd.vmware.vcloud.supportedSystemsInfo+xml"
 	TypesTaskList                        = "application/vnd.vmware.vcloud.tasksList+xml"
 	TypesVAppTemplate                    = "application/vnd.vmware.vcloud.vAppTemplate+xml"
+	TypesVApp                            = "application/vnd.vmware.vcloud.vApp+xml"
 	TypesVdc                             = "application/vnd.vmware.vcloud.vdc+xml"
 	TypesOrg                             = "application/vnd.vmware.vcloud.org+xml"
 
 	PathOrg        = "/api/org"
 	PathVdc        = "/api/vdc"
+	PathVApp       = "/api/vApp/"
 	PathOrgNetwork = "/api/network"
 	PathCatalog    = "/api/catalog"
 )
@@ -61,6 +63,8 @@ func trimID(t, href string) string {
 		prefix = PathOrg
 	case TypesVdc:
 		prefix = PathVdc
+	case TypesVApp:
+		prefix = PathVApp
 	case TypesCatalog:
 		prefix = PathCatalog
 	case TypesOrgNetwork:
