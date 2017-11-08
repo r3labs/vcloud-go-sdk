@@ -15,20 +15,7 @@ type InstantiateVAppParams struct {
 	PowerOn     bool     `xml:"powerOn,attr"`
 	Description string   `xml:"Description,omitempty"`
 	Params      struct {
-		NetworkConfigSection struct {
-			Info          string `xml:"ovf:Info"`
-			NetworkConfig struct {
-				NetworkName   string `xml:"networkName,attr"`
-				Configuration struct {
-					ParentNetwork struct {
-						Name string `xml:"name,attr"`
-						Type string `xml:"type,attr"`
-						Href string `xml:"href,attr"`
-					} `xml:"ParentNetwork"`
-					FenceMode string `xml:"FenceMode,value"`
-				} `xml:"Configuration"`
-			} `xml:"NetworkConfig"`
-		} `xml:"NetworkConfigSection"`
+		NetworkConfigSection *NetworkConfigSection `xml:"NetworkConfigSection"`
 	} `xml:"InstantiationParams"`
 	Source struct {
 		Name string `xml:"name,attr"`
@@ -46,6 +33,7 @@ func (i *InstantiateVAppParams) SetXMLNS() {
 
 // SetNetwork : sets the network the vapp will be connected to
 func (i *InstantiateVAppParams) SetNetwork(name, mode, href string) {
+	i.Params.NetworkConfigSection = &NetworkConfigSection{}
 	i.Params.NetworkConfigSection.NetworkConfig.NetworkName = name
 	i.Params.NetworkConfigSection.NetworkConfig.Configuration.FenceMode = mode
 	i.Params.NetworkConfigSection.NetworkConfig.Configuration.ParentNetwork.Name = name

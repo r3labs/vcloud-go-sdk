@@ -8,40 +8,25 @@ import "encoding/xml"
 
 // VApp ...
 type VApp struct {
-	XMLName        xml.Name `xml:"VApp"`
-	ID             string   `xml:"id,attr"`
-	Name           string   `xml:"name,attr"`
-	Href           string   `xml:"href,attr"`
-	Status         string   `xml:"status,attr"`
-	Deployed       bool     `xml:"deployed,attr"`
-	Links          Links    `xml:"Link"`
-	Description    string   `xml:"Description"`
-	StartupSection struct {
-		XMLName string `xml:"ovf:StartupSection"`
-		Name    string `xml:"name,attr"`
-		Type    string `xml:"type,attr"`
-		Href    string `xml:"href,attr"`
-		Info    string `xml:"ovf:Info"`
-		Item    struct {
-			ID          string `xml:"ovf:id,attr"`
-			Order       string `xml:"ovf:order,attr"`
-			StartAction string `xml:"ovf:startAction,attr"`
-			StartDelay  string `xml:"ovf:startDelay,attr"`
-			StopAction  string `xml:"ovf:stopAction,attr"`
-			StopDelay   string `xml:"ovf:stopDelay,attr"`
-		} `xml:"ovf:Item"`
-		Link *Link `xml:"Link"`
-	} `xml:"ovf:StartupSection"`
-	NetworkSection struct {
-		XMLNS   string `xml:"xmlns:vcloud,attr,omitempty"`
-		Type    string `xml:"vcloud:type,attr"`
-		Href    string `xml:"vcloud:href,attr"`
-		Info    string `xml:"ovf:Info"`
-		Network struct {
-			Name        string `xml:"ovf:name,attr"`
-			Description string `xml:"ovf:Description"`
-		} `xml:"ovf:Network"`
-	} `xml:"ovf:NetworkSection"`
+	XMLName        xml.Name        `xml:"VApp"`
+	XMLNS1         string          `xml:"xmlns:ovf,attr,omitempty"`
+	XMLNS2         string          `xml:"xmlns:rasd,attr,omitempty"`
+	XMLNS3         string          `xml:"xmlns:vssd,attr,omitempty"`
+	XMLNS4         string          `xml:"xmlns:vmw,attr,omitempty"`
+	XMLNS5         string          `xml:"xmlns:xsi,attr,omitempty"`
+	XMLNS6         string          `xml:"xsi:schemaLocation,attr,omitempty"`
+	ID             string          `xml:"id,attr"`
+	Name           string          `xml:"name,attr"`
+	Href           string          `xml:"href,attr"`
+	Status         string          `xml:"status,attr"`
+	Deployed       bool            `xml:"deployed,attr"`
+	Links          Links           `xml:"Link"`
+	Description    string          `xml:"Description"`
+	StartupSection *StartupSection `xml:"StartupSection"`
+	NetworkSection *NetworkSection `xml:"NetworkSection"`
+	Children       struct {
+		Vms []*VM `xml:"Vm"`
+	} `xml:"Children"`
 	TaskList *TaskList `xml:"Tasks"`
 }
 

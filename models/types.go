@@ -28,6 +28,7 @@ const (
 	TypesTaskList                        = "application/vnd.vmware.vcloud.tasksList+xml"
 	TypesVAppTemplate                    = "application/vnd.vmware.vcloud.vAppTemplate+xml"
 	TypesVApp                            = "application/vnd.vmware.vcloud.vApp+xml"
+	TypesVM                              = "application/vnd.vmware.vcloud.vm+xml"
 	TypesVdc                             = "application/vnd.vmware.vcloud.vdc+xml"
 	TypesOrg                             = "application/vnd.vmware.vcloud.org+xml"
 

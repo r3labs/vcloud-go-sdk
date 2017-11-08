@@ -10,9 +10,9 @@ type Links []*Link
 // Link ...
 type Link struct {
 	Rel  string `xml:"rel,attr,omitempty"`
-	Type string `xml:"type,attr"`
-	Name string `xml:"name,attr"`
-	Href string `xml:"href,attr"`
+	Type string `xml:"type,attr,omitempty"`
+	Name string `xml:"name,attr,omitempty"`
+	Href string `xml:"href,attr,omitempty"`
 }
 
 // ByType : filter links by type
