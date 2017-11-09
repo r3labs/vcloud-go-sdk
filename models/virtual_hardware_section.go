@@ -13,15 +13,16 @@ type VirtualHardwareSection struct {
 	Transport string                 `xml:"transport,attr,omitempty"`
 	Type      string                 `xml:"type,attr,omitempty"`
 	Href      string                 `xml:"href,attr,omitempty"`
+	Info      *VirtualHardwareElem   `xml:"Info"`
 	System    *VirtualHardwareItem   `xml:"System"`
 	Items     []*VirtualHardwareItem `xml:"Item"`
-	Info      string                 `xml:"Info"`
 }
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (v *VirtualHardwareSection) SetXMLNS() {
 	v.XMLNS1 = "http://www.vmware.com/vcloud/v1.5"
 	v.XMLName.Local = "ovf:VirtualHardwareSection"
+	v.Info.XMLName.Local = "ovf:Info"
 	v.System.XMLName.Local = "ovf:System"
 	v.System.SetXMLNS("vssd")
 

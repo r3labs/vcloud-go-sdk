@@ -12,26 +12,26 @@ import (
 // VirtualHardwareItem ...
 type VirtualHardwareItem struct {
 	XMLName                 xml.Name
-	Type                    string `xml:"type,attr,omitempty"`
-	Href                    string `xml:"href,attr,omitempty"`
-	Address                 *Address
-	AddressOnParent         *AddressOnParent
-	AllocationUnits         *AllocationUnits
-	AutomaticAllocation     *AutomaticAllocation
-	Description             *Description
-	ElementName             *ElementName
+	Type                    string                       `xml:"type,attr,omitempty"`
+	Href                    string                       `xml:"href,attr,omitempty"`
+	Address                 *VirtualHardwareElem         `xml:"Address"`
+	AddressOnParent         *VirtualHardwareElem         `xml:"AddressOnParent"`
+	AutomaticAllocation     *VirtualHardwareElem         `xml:"AutomaticAllocation"`
+	AllocationUnits         *VirtualHardwareElem         `xml:"AllocationUnits"`
+	Description             *VirtualHardwareElem         `xml:"Description"`
+	ElementName             *VirtualHardwareElem         `xml:"ElementName"`
 	HostResource            *VirtualHardwareHostResource `xml:"HostResource"`
-	InstanceID              *InstanceID
-	Parent                  *Parent
-	Reservation             *Reservation
-	ResourceType            *ResourceType
-	ResourceSubType         *ResourceSubType
-	VirtualQuantity         *VirtualQuantity
-	VirtualQuantityUnits    *VirtualQuantityUnits
-	Weight                  *Weight
-	CoresPerSocket          *CoresPerSocket
-	VirtualSystemType       *VirtualSystemType
-	VirtualSystemIdentifier *VirtualSystemIdentifier
+	InstanceID              *VirtualHardwareElem         `xml:"InstanceID"`
+	Parent                  *VirtualHardwareElem         `xml:"Parent"`
+	Reservation             *VirtualHardwareElem         `xml:"Reservation"`
+	ResourceSubType         *VirtualHardwareElem         `xml:"ResourceSubType"`
+	ResourceType            *VirtualHardwareElem         `xml:"ResourceType"`
+	VirtualQuantity         *VirtualHardwareElem         `xml:"VirtualQuantity"`
+	VirtualQuantityUnits    *VirtualHardwareElem         `xml:"VirtualQuantityUnits"`
+	VirtualSystemIdentifier *VirtualHardwareElem         `xml:"VirtualSystemIdentifier"`
+	VirtualSystemType       *VirtualHardwareElem         `xml:"VirtualSystemType"`
+	Weight                  *VirtualHardwareElem         `xml:"Weight"`
+	CoresPerSocket          *VirtualHardwareElem         `xml:"CoresPerSocket"`
 }
 
 // SetXMLNS : sets the xml namespace attributes for the request
@@ -50,109 +50,17 @@ func (v *VirtualHardwareItem) SetXMLNS(ns string) {
 		xmlField := x.Field(i).Elem().FieldByName("XMLName")
 
 		xmlName := xmlField.Addr().Interface().(*xml.Name)
-		*xmlName = xml.Name{Local: ns + ":" + xmlName.Local}
 
+		if x.Type().Field(i).Name == "CoresPerSocket" {
+			*xmlName = xml.Name{Local: "vmw:" + xmlName.Local}
+		} else {
+			*xmlName = xml.Name{Local: ns + ":" + xmlName.Local}
+		}
 	}
 }
 
-// Address ...
-type Address struct {
-	XMLName xml.Name `xml:"Address"`
-	Value   string   `xml:",chardata"`
-}
-
-// AddressOnParent ...
-type AddressOnParent struct {
-	XMLName xml.Name `xml:"AddressOnParent"`
-	Value   string   `xml:",chardata"`
-}
-
-// AllocationUnits ...
-type AllocationUnits struct {
-	XMLName xml.Name `xml:"AllocationUnits"`
-	Value   string   `xml:",chardata"`
-}
-
-// AutomaticAllocation ...
-type AutomaticAllocation struct {
-	XMLName xml.Name `xml:"AutomaticAllocation"`
-	Value   bool     `xml:",chardata"`
-}
-
-// Description ...
-type Description struct {
-	XMLName xml.Name `xml:"Description"`
-	Value   string   `xml:",chardata"`
-}
-
-// ElementName ...
-type ElementName struct {
-	XMLName xml.Name `xml:"ElementName"`
-	Value   string   `xml:",chardata"`
-}
-
-// InstanceID ...
-type InstanceID struct {
-	XMLName xml.Name `xml:"InstanceID"`
-	Value   string   `xml:",chardata"`
-}
-
-// Parent ...
-type Parent struct {
-	XMLName xml.Name `xml:"Parent"`
-	Value   string   `xml:",chardata"`
-}
-
-// Reservation ...
-type Reservation struct {
-	XMLName xml.Name `xml:"Reservation"`
-	Value   string   `xml:",chardata"`
-}
-
-// ResourceType ...
-type ResourceType struct {
-	XMLName xml.Name `xml:"ResourceType"`
-	Value   string   `xml:",chardata"`
-}
-
-// ResourceSubType ...
-type ResourceSubType struct {
-	XMLName xml.Name `xml:"ResourceSubType"`
-	Value   string   `xml:",chardata"`
-}
-
-// VirtualQuantity ...
-type VirtualQuantity struct {
-	XMLName xml.Name `xml:"VirtualQuantity"`
-	Value   string   `xml:",chardata"`
-}
-
-// VirtualQuantityUnits ...
-type VirtualQuantityUnits struct {
-	XMLName xml.Name `xml:"VirtualQuantityUnits"`
-	Value   string   `xml:",chardata"`
-}
-
-// Weight ...ElementName
-type Weight struct {
-	XMLName xml.Name `xml:"Weight"`
-	Value   string   `xml:",chardata"`
-}
-
-// CoresPerSocket ...
-type CoresPerSocket struct {
-	XMLName xml.Name `xml:"CoresPerSocket"`
-	Value   string   `xml:",chardata"`
-}
-
-// VirtualSystemType ...
-type VirtualSystemType struct {
-	XMLName xml.Name `xml:"VirtualSystemType"`
-	Value   string   `xml:",chardata"`
-}
-
-// VirtualSystemIdentifier ...
-type VirtualSystemIdentifier struct {
-	XMLName xml.Name `xml:"VirtualSystemIdentifier"`
-	Value   string   `xml:",chardata"`
+// VirtualHardwareElem ...
+type VirtualHardwareElem struct {
+	XMLName xml.Name
+	Value   string `xml:",chardata"`
 }
