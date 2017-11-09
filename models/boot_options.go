@@ -12,3 +12,8 @@ type BootOptions struct {
 	EnterBIOSSetup bool   `xml:"EnterBIOSSetup"`
 	Link           *Link  `xml:"Link"`
 }
+
+// RemoveLink ...
+func (b *BootOptions) RemoveLink() {
+	b.Link = nil
+}

@@ -34,11 +34,11 @@ type VM struct {
 	GuestCustomizationSection *GuestCustomizationSection `xml:"GuestCustomizationSection"`
 	RuntimeInfoSection        *RuntimeInfoSection        `xml:"RuntimeInfoSection"`
 	SnapshotSection           *SnapshotSection           `xml:"SnapshotSection"`
+	DateCreated               string                     `xml:"DateCreated"`
+	VAppScopedLocalID         string                     `xml:"VAppScopedLocalId"`
 	VMCapabilities            *VMCapabilities            `xml:"VmCapabilities"`
 	StorageProfile            *Link                      `xml:"StorageProfile"`
 	BootOptions               *BootOptions               `xml:"BootOptions"`
-	VAppScopedLocalID         string                     `xml:"VAppScopedLocalId"`
-	DateCreated               string                     `xml:"DateCreated"`
 }
 
 // GetID : returns the vm's trimmed id
@@ -54,9 +54,13 @@ func (v *VM) SetXMLNS() {
 	v.XMLNS4 = "http://www.vmware.com/schema/ovf"
 	v.XMLNS5 = "http://www.w3.org/2001/XMLSchema-instance"
 	v.SchemaLocation = "http://schemas.dmtf.org/ovf/envelope/1 http://schemas.dmtf.org/ovf/envelope/1/dsp8023_1.1.0.xsd http://www.vmware.com/vcloud/v1.5 http://10.1.99.66/api/v1.5/schema/master.xsd http://www.vmware.com/schema/ovf http://www.vmware.com/schema/ovf http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2.22.0/CIM_ResourceAllocationSettingData.xsd http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2.22.0/CIM_VirtualSystemSettingData.xsd"
-	v.VirtualHardwareSection.SetXMLNS()
-}
 
-/*
-<Vm xmlns="http://www.vmware.com/vcloud/v1.5" xmlns:ovf= xmlns:rasd= xmlns:vssd= xmlns:vmw= xmlns:xsi= needsCustomization="false" nestedHypervisorEnabled="false" deployed="false" status="8" name="ubuntu-1404" id="urn:vcloud:vm:fe5a02ff-f4e0-448a-86f8-cda66ab66e65" href="https://myvdc.carrenza.net/api/vApp/vm-fe5a02ff-f4e0-448a-86f8-cda66ab66e65" type="application/vnd.vmware.vcloud.vm+xml" xsi:schemaLocation="http://schemas.dmtf.org/ovf/envelope/1 http://schemas.dmtf.org/ovf/envelope/1/dsp8023_1.1.0.xsd http://www.vmware.com/vcloud/v1.5 http://10.1.99.66/api/v1.5/schema/master.xsd http://www.vmware.com/schema/ovf http://www.vmware.com/schema/ovf http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2.22.0/CIM_ResourceAllocationSettingData.xsd http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2.22.0/CIM_VirtualSystemSettingData.xsd">
-*/
+	v.VirtualHardwareSection.SetXMLNS()
+	v.OperatingSystemSection.SetXMLNS()
+	v.NetworkConnectionSection.SetXMLNS()
+	v.GuestCustomizationSection.SetXMLNS()
+	v.RuntimeInfoSection.SetXMLNS()
+	v.SnapshotSection.SetXMLNS()
+	v.VMCapabilities.RemoveLink()
+	v.BootOptions.RemoveLink()
+}

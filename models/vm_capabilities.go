@@ -9,6 +9,11 @@ type VMCapabilities struct {
 	Type                string `xml:"type,attr,omitempty"`
 	Href                string `xml:"href,attr,omitempty"`
 	MemoryHotAddEnabled bool   `xml:"MemoryHotAddEnabled"`
-	CpuHotAddEnabled    bool   `xml:"CpuHotAddEnabled"`
+	CPUHotAddEnabled    bool   `xml:"CpuHotAddEnabled"`
 	Link                *Link  `xml:"Link"`
+}
+
+// RemoveLink ...
+func (v *VMCapabilities) RemoveLink() {
+	v.Link = nil
 }

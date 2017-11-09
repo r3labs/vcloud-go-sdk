@@ -14,24 +14,24 @@ type VirtualHardwareItem struct {
 	XMLName                 xml.Name
 	Type                    string                       `xml:"type,attr,omitempty"`
 	Href                    string                       `xml:"href,attr,omitempty"`
-	Address                 *VirtualHardwareElem         `xml:"Address"`
-	AddressOnParent         *VirtualHardwareElem         `xml:"AddressOnParent"`
-	AutomaticAllocation     *VirtualHardwareElem         `xml:"AutomaticAllocation"`
-	AllocationUnits         *VirtualHardwareElem         `xml:"AllocationUnits"`
-	Description             *VirtualHardwareElem         `xml:"Description"`
-	ElementName             *VirtualHardwareElem         `xml:"ElementName"`
+	Address                 *GenericElem                 `xml:"Address"`
+	AddressOnParent         *GenericElem                 `xml:"AddressOnParent"`
+	AutomaticAllocation     *GenericElem                 `xml:"AutomaticAllocation"`
+	AllocationUnits         *GenericElem                 `xml:"AllocationUnits"`
+	Description             *GenericElem                 `xml:"Description"`
+	ElementName             *GenericElem                 `xml:"ElementName"`
 	HostResource            *VirtualHardwareHostResource `xml:"HostResource"`
-	InstanceID              *VirtualHardwareElem         `xml:"InstanceID"`
-	Parent                  *VirtualHardwareElem         `xml:"Parent"`
-	Reservation             *VirtualHardwareElem         `xml:"Reservation"`
-	ResourceSubType         *VirtualHardwareElem         `xml:"ResourceSubType"`
-	ResourceType            *VirtualHardwareElem         `xml:"ResourceType"`
-	VirtualQuantity         *VirtualHardwareElem         `xml:"VirtualQuantity"`
-	VirtualQuantityUnits    *VirtualHardwareElem         `xml:"VirtualQuantityUnits"`
-	VirtualSystemIdentifier *VirtualHardwareElem         `xml:"VirtualSystemIdentifier"`
-	VirtualSystemType       *VirtualHardwareElem         `xml:"VirtualSystemType"`
-	Weight                  *VirtualHardwareElem         `xml:"Weight"`
-	CoresPerSocket          *VirtualHardwareElem         `xml:"CoresPerSocket"`
+	InstanceID              *GenericElem                 `xml:"InstanceID"`
+	Parent                  *GenericElem                 `xml:"Parent"`
+	Reservation             *GenericElem                 `xml:"Reservation"`
+	ResourceSubType         *GenericElem                 `xml:"ResourceSubType"`
+	ResourceType            *GenericElem                 `xml:"ResourceType"`
+	VirtualQuantity         *GenericElem                 `xml:"VirtualQuantity"`
+	VirtualQuantityUnits    *GenericElem                 `xml:"VirtualQuantityUnits"`
+	VirtualSystemIdentifier *GenericElem                 `xml:"VirtualSystemIdentifier"`
+	VirtualSystemType       *GenericElem                 `xml:"VirtualSystemType"`
+	Weight                  *GenericElem                 `xml:"Weight"`
+	CoresPerSocket          *GenericElem                 `xml:"CoresPerSocket"`
 }
 
 // SetXMLNS : sets the xml namespace attributes for the request
@@ -48,19 +48,16 @@ func (v *VirtualHardwareItem) SetXMLNS(ns string) {
 		}
 
 		xmlField := x.Field(i).Elem().FieldByName("XMLName")
-
 		xmlName := xmlField.Addr().Interface().(*xml.Name)
 
-		if x.Type().Field(i).Name == "CoresPerSocket" {
+		switch x.Type().Field(i).Name {
+		case "CoresPerSocket":
 			*xmlName = xml.Name{Local: "vmw:" + xmlName.Local}
-		} else {
+		case "HostResource":
+			*xmlName = xml.Name{Local: ns + ":" + xmlName.Local}
+			x.Field(i).MethodByName("SetXMLNS").Call([]reflect.Value{})
+		default:
 			*xmlName = xml.Name{Local: ns + ":" + xmlName.Local}
 		}
 	}
-}
-
-// VirtualHardwareElem ...
-type VirtualHardwareElem struct {
-	XMLName xml.Name
-	Value   string `xml:",chardata"`
 }

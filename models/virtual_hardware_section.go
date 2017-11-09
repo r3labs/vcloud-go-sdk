@@ -13,7 +13,7 @@ type VirtualHardwareSection struct {
 	Transport string                 `xml:"transport,attr,omitempty"`
 	Type      string                 `xml:"type,attr,omitempty"`
 	Href      string                 `xml:"href,attr,omitempty"`
-	Info      *VirtualHardwareElem   `xml:"Info"`
+	Info      *GenericElem           `xml:"Info"`
 	System    *VirtualHardwareItem   `xml:"System"`
 	Items     []*VirtualHardwareItem `xml:"Item"`
 }

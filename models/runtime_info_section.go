@@ -6,13 +6,25 @@ package models
 
 // RuntimeInfoSection ...
 type RuntimeInfoSection struct {
-	XMLNS1      string `xml:"xmlns:vcloud,attr,omitempty"`
-	Type        string `xml:"type,attr,omitempty"`
-	Href        string `xml:"href,attr,omitempty"`
-	Info        string `xml:"Info,omitempty"`
-	Description string `xml:"Description,omitempty"`
+	XMLNS1      string       `xml:"xmlns:vcloud,attr,omitempty"`
+	Type        string       `xml:"type,attr,omitempty"`
+	Href        string       `xml:"href,attr,omitempty"`
+	NSType      string       `xml:"vcloud:type,attr,omitempty"`
+	NSHref      string       `xml:"vcloud:href,attr,omitempty"`
+	Info        *GenericElem `xml:"Info,omitempty"`
 	VMWareTools struct {
 		Version string `xml:"version,attr"`
 	} `xml:"VMWareTools"`
 	Link *Link `xml:"Link"`
+}
+
+// SetXMLNS : sets the xml namespace attributes for the request
+func (r *RuntimeInfoSection) SetXMLNS() {
+	r.XMLNS1 = "http://www.vmware.com/vcloud/v1.5"
+	r.Info.XMLName.Local = "ovf:Info"
+	r.NSType = r.Type
+	r.NSHref = r.Href
+	r.Type = ""
+	r.Href = ""
+	r.Link = nil
 }
