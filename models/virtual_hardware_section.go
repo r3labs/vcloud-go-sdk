@@ -27,6 +27,6 @@ func (v *VirtualHardwareSection) SetXMLNS() {
 
 	for _, i := range v.Items {
 		i.XMLName.Local = "ovf:Item"
-		v.System.SetXMLNS("rasd")
+		i.SetXMLNS("rasd")
 	}
 }

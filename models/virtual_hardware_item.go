@@ -6,7 +6,6 @@ package models
 
 import (
 	"encoding/xml"
-	"fmt"
 	"reflect"
 )
 
@@ -37,46 +36,22 @@ type VirtualHardwareItem struct {
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (v *VirtualHardwareItem) SetXMLNS(ns string) {
-	a := reflect.ValueOf(v)
-	x := reflect.Indirect(a)
-
-	var names []*xml.Name
+	x := reflect.ValueOf(v).Elem()
 
 	for i := 0; i < x.NumField(); i++ {
 		if x.Field(i).Kind() != reflect.Ptr {
 			continue
 		}
+
 		if x.Field(i).IsNil() {
 			continue
 		}
 
-		xi := reflect.Indirect(x.Field(i))
+		xmlField := x.Field(i).Elem().FieldByName("XMLName")
 
-		l := xi.FieldByName("XMLName")
+		xmlName := xmlField.Addr().Interface().(*xml.Name)
+		*xmlName = xml.Name{Local: ns + ":" + xmlName.Local}
 
-		name := l.Interface().(xml.Name)
-		names = append(names, &name)
-
-		/*
-			fmt.Println(l)
-			xmlname := l.Interface().(xml.Name)
-			xmlname.Local = ns + ":" + xmlname.Local
-			l.Set(reflect.ValueOf(xmlname))
-			//fmt.Println(l)
-
-			/*
-				l := f.Interface().(*xml.Name).Local
-				fmt.Println(l)
-				l = ns + ":" + l
-				fmt.Println(f.Interface().(xml.Name).Local)
-		*/
-		// := x.Field(i).Interface().(XMLElem)
-		//fmt.Println(v.Name().Local)
-	}
-
-	for i := 0; i < len(names); i++ {
-		names[i].Local = ns + ":" + names[i].Local
-		fmt.Println(names[i].Local)
 	}
 }
 
