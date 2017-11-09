@@ -32,6 +32,6 @@ type GuestCustomizationSection struct {
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (g *GuestCustomizationSection) SetXMLNS() {
-	g.Info.XMLName.Local = "ovf:Info"
+	g.Info.XMLName.Local = ElemInfo
 	g.Link = nil
 }

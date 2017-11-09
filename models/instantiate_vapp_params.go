@@ -27,7 +27,7 @@ type InstantiateVAppParams struct {
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (i *InstantiateVAppParams) SetXMLNS() {
-	i.XMLNS1 = "http://schemas.dmtf.org/ovf/envelope/1"
+	i.XMLNS1 = NamespaceOvf
 	i.Params.NetworkConfigSection.Info = "Configuration"
 }
 

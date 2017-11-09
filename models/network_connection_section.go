@@ -15,6 +15,6 @@ type NetworkConnectionSection struct {
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (n *NetworkConnectionSection) SetXMLNS() {
-	n.Info.XMLName.Local = "ovf:Info"
+	n.Info.XMLName.Local = ElemInfo
 	n.Link = nil
 }

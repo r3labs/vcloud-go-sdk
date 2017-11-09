@@ -4,7 +4,10 @@
 
 package models
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+	"strconv"
+)
 
 // VirtualHardwareSection ...
 type VirtualHardwareSection struct {
@@ -20,14 +23,41 @@ type VirtualHardwareSection struct {
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (v *VirtualHardwareSection) SetXMLNS() {
-	v.XMLNS1 = "http://www.vmware.com/vcloud/v1.5"
-	v.XMLName.Local = "ovf:VirtualHardwareSection"
-	v.Info.XMLName.Local = "ovf:Info"
-	v.System.XMLName.Local = "ovf:System"
+	v.XMLNS1 = NamespaceVcloud
+	v.XMLName.Local = ElemVirtualHardwareSection
+	v.Info.XMLName.Local = ElemInfo
+	v.System.XMLName.Local = ElemSystem
 	v.System.SetXMLNS("vssd")
 
 	for _, i := range v.Items {
-		i.XMLName.Local = "ovf:Item"
+		i.XMLName.Local = ElemInfo
 		i.SetXMLNS("rasd")
 	}
+}
+
+// AddDisk : adds a disk
+func (v *VirtualHardwareSection) AddDisk() {
+
+}
+
+// SetCPU : set number of cpu cores
+func (v *VirtualHardwareSection) SetCPU(cores int) {
+	v.getResources("processor")[0].VirtualQuantity.Value = strconv.Itoa(cores)
+}
+
+// SetRAM : set ram in mb
+func (v *VirtualHardwareSection) SetRAM(mb int) {
+	v.getResources("memory")[0].VirtualQuantity.Value = strconv.Itoa(mb)
+}
+
+func (v *VirtualHardwareSection) getResources(name string) []*VirtualHardwareItem {
+	var items []*VirtualHardwareItem
+
+	for i := 0; i < len(v.Items); i++ {
+		if getResourceName(v.Items[i].ResourceType.Value) == name {
+			items = append(items, v.Items[i])
+		}
+	}
+
+	return items
 }

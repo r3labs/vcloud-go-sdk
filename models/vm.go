@@ -48,12 +48,12 @@ func (v *VM) GetID() string {
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (v *VM) SetXMLNS() {
-	v.XMLNS1 = "http://schemas.dmtf.org/ovf/envelope/1"
-	v.XMLNS2 = "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
-	v.XMLNS3 = "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData"
-	v.XMLNS4 = "http://www.vmware.com/schema/ovf"
-	v.XMLNS5 = "http://www.w3.org/2001/XMLSchema-instance"
-	v.SchemaLocation = "http://schemas.dmtf.org/ovf/envelope/1 http://schemas.dmtf.org/ovf/envelope/1/dsp8023_1.1.0.xsd http://www.vmware.com/vcloud/v1.5 http://10.1.99.66/api/v1.5/schema/master.xsd http://www.vmware.com/schema/ovf http://www.vmware.com/schema/ovf http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2.22.0/CIM_ResourceAllocationSettingData.xsd http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2.22.0/CIM_VirtualSystemSettingData.xsd"
+	v.XMLNS1 = NamespaceOvf
+	v.XMLNS2 = NamespaceResourceAllocation
+	v.XMLNS3 = NamespaceVirtualSystem
+	v.XMLNS4 = NamespaceVmwareOvf
+	v.XMLNS5 = NamespaceSchemaInstance
+	v.SchemaLocation = NamespaceSchemaLocation
 
 	v.VirtualHardwareSection.SetXMLNS()
 	v.OperatingSystemSection.SetXMLNS()

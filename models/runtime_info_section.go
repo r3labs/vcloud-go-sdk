@@ -20,11 +20,14 @@ type RuntimeInfoSection struct {
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (r *RuntimeInfoSection) SetXMLNS() {
-	r.XMLNS1 = "http://www.vmware.com/vcloud/v1.5"
-	r.Info.XMLName.Local = "ovf:Info"
+	r.XMLNS1 = NamespaceVcloud
+	r.Info.XMLName.Local = ElemInfo
+
 	r.NSType = r.Type
 	r.NSHref = r.Href
+
 	r.Type = ""
 	r.Href = ""
+
 	r.Link = nil
 }

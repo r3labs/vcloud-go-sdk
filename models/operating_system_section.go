@@ -25,17 +25,21 @@ type OperatingSystemSection struct {
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (o *OperatingSystemSection) SetXMLNS() {
-	o.XMLNS1 = "http://www.vmware.com/vcloud/v1.5"
-	o.XMLName.Local = "ovf:OperatingSystemSection"
-	o.Info.XMLName.Local = "ovf:Info"
-	o.Description.XMLName.Local = "ovf:Description"
+	o.XMLNS1 = NamespaceVcloud
+	o.XMLName.Local = ElemOperatingSystemSection
+
+	o.Info.XMLName.Local = ElemInfo
+	o.Description.XMLName.Local = ElemDescription
+
 	o.NSID = o.ID
 	o.NSType = o.Type
 	o.NSHref = o.Href
 	o.NSOsType = o.OsType
+
 	o.ID = ""
 	o.Type = ""
 	o.Href = ""
 	o.OsType = ""
+
 	o.Link = nil
 }

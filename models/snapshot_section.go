@@ -14,6 +14,6 @@ type SnapshotSection struct {
 
 // SetXMLNS : sets the xml namespace attributes for the request
 func (s *SnapshotSection) SetXMLNS() {
-	s.Info.XMLName.Local = "ovf:Info"
+	s.Info.XMLName.Local = ElemInfo
 	s.Link = nil
 }
