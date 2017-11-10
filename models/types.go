@@ -22,6 +22,8 @@ const (
 	TypesCatalog                         = "application/vnd.vmware.vcloud.catalog+xml"
 	TypesControlAccess                   = "application/vnd.vmware.vcloud.controlAccess+xml"
 	TypesHybridOrg                       = "application/vnd.vmware.vcloud.hybridOrg+xml"
+	TypesDeployVAppParams                = "application/vnd.vmware.vcloud.deployVAppParams+xml"
+	TypesUndeployVAppParams              = "application/vnd.vmware.vcloud.undeployVAppParams+xml"
 	TypesInstantiateVAppTemplateParams   = "application/vnd.vmware.vcloud.instantiateVAppTemplateParams+xml"
 	TypesInstantiateVdcTemplateParams    = "application/vnd.vmware.vcloud.instantiateVdcTemplateParams+xml"
 	TypesMetadata                        = "application/vnd.vmware.vcloud.metadata+xml"
