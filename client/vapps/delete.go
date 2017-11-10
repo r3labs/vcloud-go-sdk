@@ -15,7 +15,7 @@ import (
 func (n *VApps) Delete(id string) (*models.Task, error) {
 	var t models.Task
 
-	path := fmt.Sprintf("/api/admin/vapp/%s", id)
+	path := fmt.Sprintf("/api/admin/vapp/vapp-%s", id)
 
 	resp, err := n.Conn.Delete(path)
 	if err != nil {

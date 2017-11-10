@@ -39,6 +39,7 @@ const (
 	TypesOrg                             = "application/vnd.vmware.vcloud.org+xml"
 
 	ElemInfo                   = "ovf:Info"
+	ElemItem                   = "ovf:Item"
 	ElemSystem                 = "ovf:System"
 	ElemDescription            = "ovf:Description"
 	ElemOperatingSystemSection = "ovf:OperatingSystemSection"
@@ -52,9 +53,17 @@ const (
 	NamespaceResourceAllocation = "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData"
 	NamespaceSchemaLocation     = "http://schemas.dmtf.org/ovf/envelope/1 http://schemas.dmtf.org/ovf/envelope/1/dsp8023_1.1.0.xsd http://www.vmware.com/vcloud/v1.5 http://10.1.99.66/api/v1.5/schema/master.xsd http://www.vmware.com/schema/ovf http://www.vmware.com/schema/ovf http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2.22.0/CIM_ResourceAllocationSettingData.xsd http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2.22.0/CIM_VirtualSystemSettingData.xsd"
 
+	BusTypeIDE            = "5"
+	BusTypeSCSI           = "6"
+	BusTypeSATA           = "20"
+	BusSubTypeBusLogic    = "buslogic"
+	BusSubTypeLsiLogic    = "lsilogic"
+	BusSubTypeLsiLogicSAS = "lsilogicsas"
+	BusSubTypeVirtualSCSI = "VirtualSCSI"
+
 	PathOrg        = "/api/org"
 	PathVdc        = "/api/vdc"
-	PathVApp       = "/api/vApp/"
+	PathVApp       = "/api/vApp/vapp-"
 	PathOrgNetwork = "/api/network"
 	PathCatalog    = "/api/catalog"
 )

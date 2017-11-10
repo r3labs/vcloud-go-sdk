@@ -16,8 +16,6 @@ func (n *Vms) Get(id string) (*models.VM, error) {
 	var m models.VM
 
 	path := fmt.Sprintf(apiroute+"%s", id)
-	fmt.Println("PATH:")
-	fmt.Println(path)
 
 	resp, err := n.Conn.Get(path)
 	if err != nil {

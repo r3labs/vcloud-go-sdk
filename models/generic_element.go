@@ -11,3 +11,8 @@ type GenericElem struct {
 	XMLName xml.Name
 	Value   string `xml:",chardata"`
 }
+
+// NewGenericElem : returns a new generic element
+func NewGenericElem(name, value string) *GenericElem {
+	return &GenericElem{XMLName: xml.Name{Local: name}, Value: value}
+}
