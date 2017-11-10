@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package vapps
+package vms
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 )
 
 // GetMetadata : get a vapp's metadata
-func (v *VApps) GetMetadata(id string) (*models.Metadata, error) {
+func (v *Vms) GetMetadata(id string) (*models.Metadata, error) {
 	var m models.Metadata
 
 	path := fmt.Sprintf(apiroute+"%s/metadata", id)
