@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package vms
+package vapps
 
 import (
 	"encoding/xml"
@@ -12,20 +12,20 @@ import (
 	"github.com/r3labs/vcloud-go-sdk/models"
 )
 
-// Update : update a vm
-func (v *Vms) Update(vm *models.VM) (*models.Task, error) {
+// UpdateMetadata : update a vapp's metadata
+func (v *VApps) UpdateMetadata(id string, metadata *models.Metadata) (*models.Task, error) {
 	var t models.Task
 
-	vm.SetXMLNS()
+	path := fmt.Sprintf(apiroute+"%s/metadata", id)
 
-	path := fmt.Sprintf(apiroute+"%s/action/reconfigureVm", vm.GetID())
+	metadata.SetXMLNS()
 
-	data, err := xml.MarshalIndent(vm, "  ", "    ")
+	data, err := xml.Marshal(metadata)
 	if err != nil {
 		return nil, err
 	}
 
-	resp, err := v.Conn.Post(path, models.TypesVM, data)
+	resp, err := v.Conn.Post(path, models.TypesMetadata, data)
 	if err != nil {
 		return nil, err
 	}

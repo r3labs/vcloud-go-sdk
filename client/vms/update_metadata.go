@@ -13,23 +13,19 @@ import (
 )
 
 // UpdateMetadata : update a vm's metadata
-func (n *Vms) UpdateMetadata(id string, metadata *models.Metadata) (*models.Task, error) {
+func (v *Vms) UpdateMetadata(id string, metadata *models.Metadata) (*models.Task, error) {
 	var t models.Task
 
 	path := fmt.Sprintf(apiroute+"%s/metadata", id)
 
-	fmt.Println(path)
-
 	metadata.SetXMLNS()
 
-	data, err := xml.MarshalIndent(metadata, "  ", "    ")
+	data, err := xml.Marshal(metadata)
 	if err != nil {
 		return nil, err
 	}
 
-	fmt.Println(string(data))
-
-	resp, err := n.Conn.Post(path, models.TypesMetadata, data)
+	resp, err := v.Conn.Post(path, models.TypesMetadata, data)
 	if err != nil {
 		return nil, err
 	}

@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package vms
+package vapps
 
 import (
 	"fmt"
@@ -11,11 +11,11 @@ import (
 	"github.com/r3labs/vcloud-go-sdk/models"
 )
 
-// Get : get a vm
-func (v *Vms) Get(id string) (*models.VM, error) {
-	var m models.VM
+// GetMetadata : get a vm's metadata
+func (v *VApps) GetMetadata(id string) (*models.Metadata, error) {
+	var m models.Metadata
 
-	path := fmt.Sprintf(apiroute+"%s", id)
+	path := fmt.Sprintf(apiroute+"%s/metadata", id)
 
 	resp, err := v.Conn.Get(path)
 	if err != nil {
