@@ -20,6 +20,7 @@ const (
 	TypeAdminOrganization                = "application/vnd.vmware.admin.organization+xml"
 	TypeAminVdcTemplates                 = "application/vnd.vmware.admin.vdcTemplates+xml"
 	TypesCatalog                         = "application/vnd.vmware.vcloud.catalog+xml"
+	TypesCatalogItem                     = "application/vnd.vmware.vcloud.catalogItem+xml"
 	TypesControlAccess                   = "application/vnd.vmware.vcloud.controlAccess+xml"
 	TypesHybridOrg                       = "application/vnd.vmware.vcloud.hybridOrg+xml"
 	TypesDeployVAppParams                = "application/vnd.vmware.vcloud.deployVAppParams+xml"
