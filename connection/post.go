@@ -8,6 +8,11 @@ import "net/http"
 
 // Post : post data to vcloud api
 func (c *Conn) Post(path string, ctype string, data []byte) (*http.Response, error) {
-	headers := map[string]string{"Content-Type": ctype}
+	var headers map[string]string
+
+	if ctype != "" {
+		headers = map[string]string{"Content-Type": ctype}
+	}
+
 	return c.Request("POST", path, data, headers)
 }
