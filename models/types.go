@@ -27,6 +27,7 @@ const (
 	TypesInstantiateVAppTemplateParams   = "application/vnd.vmware.vcloud.instantiateVAppTemplateParams+xml"
 	TypesInstantiateVdcTemplateParams    = "application/vnd.vmware.vcloud.instantiateVdcTemplateParams+xml"
 	TypesMetadata                        = "application/vnd.vmware.vcloud.metadata+xml"
+	TypesMetadataValue                   = "application/vnd.vmware.vcloud.metadata.value+xml"
 	TypesEdgeGateway                     = "application/vnd.vmware.admin.edgeGateway+xml"
 	TypesEdgeGatewayServiceConfiguration = "application/vnd.vmware.admin.edgeGatewayServiceConfiguration+xml"
 	TypesNetwork                         = "application/vnd.vmware.vcloud.network+xml"
