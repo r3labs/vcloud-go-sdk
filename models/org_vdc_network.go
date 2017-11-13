@@ -70,6 +70,16 @@ func (n *Network) SetGateway(gateway string) {
 	n.Configuration.IPScopes.IPScope[0].Gateway = gateway
 }
 
+// EdgeGatewayName ...
+func (n *Network) EdgeGatewayName() string {
+	return n.EdgeGateway.Name
+}
+
+// EdgeGatewayID ...
+func (n *Network) EdgeGatewayID() string {
+	return trimID(TypesEdgeGateway, n.EdgeGateway.Href)
+}
+
 // SetEdgeGateway ...
 func (n *Network) SetEdgeGateway(href string, name string) {
 	n.EdgeGateway = &NetworkGateway{
@@ -85,10 +95,20 @@ func (n *Network) SetIsEnabled(enabled bool) {
 	n.Configuration.IPScopes.IPScope[0].IsEnabled = enabled
 }
 
+// DNS1 ....
+func (n *Network) DNS1() string {
+	return n.Configuration.IPScopes.IPScope[0].DNS1
+}
+
 // SetDNS1 ...
 func (n *Network) SetDNS1(ns string) {
 	n.configureIPScope()
 	n.Configuration.IPScopes.IPScope[0].DNS1 = ns
+}
+
+// DNS2 ....
+func (n *Network) DNS2() string {
+	return n.Configuration.IPScopes.IPScope[0].DNS2
 }
 
 // SetDNS2 ...
@@ -97,10 +117,20 @@ func (n *Network) SetDNS2(ns string) {
 	n.Configuration.IPScopes.IPScope[0].DNS2 = ns
 }
 
+// StartAddress ....
+func (n *Network) StartAddress() string {
+	return n.Configuration.IPScopes.IPScope[0].IPRanges.IPRange[0].StartAddress
+}
+
 // SetStartAddress ...
 func (n *Network) SetStartAddress(start string) {
 	n.configureIPRange()
 	n.Configuration.IPScopes.IPScope[0].IPRanges.IPRange[0].StartAddress = start
+}
+
+// EndAddress ....
+func (n *Network) EndAddress() string {
+	return n.Configuration.IPScopes.IPScope[0].IPRanges.IPRange[0].EndAddress
 }
 
 // SetEndAddress ...

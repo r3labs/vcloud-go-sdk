@@ -10,7 +10,7 @@ import (
 )
 
 // List : list all availabile orgs
-func (o *Orgs) List() ([]*models.OrgListOrg, error) {
+func (o *Orgs) List() (models.Links, error) {
 	var ms models.OrgList
 
 	resp, err := o.Conn.Get(apiroute)

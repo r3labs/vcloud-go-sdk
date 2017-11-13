@@ -8,6 +8,6 @@ import "encoding/xml"
 
 // OrgList ...
 type OrgList struct {
-	XMLName xml.Name      `xml:"OrgList"`
-	Orgs    []*OrgListOrg `xml:"Org"`
+	XMLName xml.Name `xml:"OrgList"`
+	Orgs    Links    `xml:"Org"`
 }

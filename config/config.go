@@ -4,6 +4,8 @@
 
 package config
 
+import "strings"
+
 // Config : for storing credentials and information about ernest
 type Config struct {
 	URL        string
@@ -32,4 +34,9 @@ func (c *Config) WithCredentials(username, password string) *Config {
 	c.Username = username
 	c.Password = password
 	return c
+}
+
+// Org : returns the org name supplied in the username field
+func (c *Config) Org() string {
+	return strings.Split(c.Username, "@")[1]
 }

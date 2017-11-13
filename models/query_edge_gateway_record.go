@@ -15,3 +15,8 @@ type QueryEdgeGatewayRecord struct {
 	Busy                 bool   `xml:"isBusy,attr"`
 	ExternalNetworkCount string `xml:"numberOfExtNetworks,attr"`
 }
+
+// ID : returns the id of the resource
+func (q *QueryEdgeGatewayRecord) ID() string {
+	return trimID(TypesEdgeGateway, q.Href)
+}

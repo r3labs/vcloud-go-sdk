@@ -95,11 +95,12 @@ const (
 	BusSubTypeLsiLogicSAS = "lsilogicsas"
 	BusSubTypeVirtualSCSI = "VirtualSCSI"
 
-	PathOrg        = "/api/org"
-	PathVdc        = "/api/vdc"
-	PathVApp       = "/api/vApp/vapp-"
-	PathOrgNetwork = "/api/network"
-	PathCatalog    = "/api/catalog"
+	PathOrg         = "/api/org"
+	PathVdc         = "/api/vdc"
+	PathVApp        = "/api/vApp/vapp-"
+	PathEdgeGateway = "/api/admin/edgeGateway/"
+	PathOrgNetwork  = "/api/network"
+	PathCatalog     = "/api/catalog"
 )
 
 // TypesResources : list of all Hardware Item resource types
@@ -164,6 +165,8 @@ func trimID(t, href string) string {
 		prefix = PathVApp
 	case TypesCatalog:
 		prefix = PathCatalog
+	case TypesEdgeGateway:
+		prefix = PathEdgeGateway
 	case TypesOrgNetwork:
 		prefix = PathOrgNetwork
 	}
