@@ -31,12 +31,10 @@ func (c *Conn) Request(method, path string, data []byte, headers map[string]stri
 }
 
 func (c *Conn) setupRequest(method, path string, data []byte, headers map[string]string) (*http.Request, error) {
-	u, err := url.Parse(c.config.URL)
+	u, err := url.Parse(c.config.URL + path)
 	if err != nil {
 		return nil, err
 	}
-
-	u.Path = path
 
 	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(data))
 	if err != nil {

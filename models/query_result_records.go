@@ -8,9 +8,12 @@ import "encoding/xml"
 
 // QueryResultRecords ...
 type QueryResultRecords struct {
-	XMLName            xml.Name `xml:"QueryResultRecords"`
-	Total              int      `xml:"total,attr"`
-	PageSize           int      `xml:"pageSize,attr"`
-	Page               int      `xml:"page,attr"`
-	EdgeGatewayRecords Links    `xml:"EdgeGatewayRecord"`
+	XMLName            xml.Name                    `xml:"QueryResultRecords"`
+	Total              int                         `xml:"total,attr"`
+	PageSize           int                         `xml:"pageSize,attr"`
+	Page               int                         `xml:"page,attr"`
+	EdgeGatewayRecords []*QueryEdgeGatewayRecord   `xml:"EdgeGatewayRecord"`
+	VAppRecords        []*QueryVAppRecord          `xml:"VAppRecord"`
+	VdcRecords         []*QueryVdcRecord           `xml:"VdcRecord"`
+	OrgVdcNetworks     []*QueryOrgVdcNetworkRecord `xml:"OrgVdcNetworkRecord"`
 }

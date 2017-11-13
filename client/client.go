@@ -9,6 +9,7 @@ import (
 	"github.com/r3labs/vcloud-go-sdk/client/gateways"
 	"github.com/r3labs/vcloud-go-sdk/client/networks"
 	"github.com/r3labs/vcloud-go-sdk/client/orgs"
+	"github.com/r3labs/vcloud-go-sdk/client/queries"
 	"github.com/r3labs/vcloud-go-sdk/client/tasks"
 	"github.com/r3labs/vcloud-go-sdk/client/templates"
 	"github.com/r3labs/vcloud-go-sdk/client/vapps"
@@ -26,6 +27,7 @@ type Client struct {
 	Vms       *vms.Vms
 	VApps     *vapps.VApps
 	Tasks     *tasks.Tasks
+	Queries   *queries.Queries
 	Gateways  *gateways.Gateways
 	Networks  *networks.Networks
 	Catalogs  *catalogs.Catalogs
@@ -43,6 +45,7 @@ func New(cfg *config.Config) *Client {
 		Vms:       &vms.Vms{Conn: c},
 		VApps:     &vapps.VApps{Conn: c},
 		Tasks:     &tasks.Tasks{Conn: c},
+		Queries:   &queries.Queries{Conn: c},
 		Gateways:  &gateways.Gateways{Conn: c},
 		Networks:  &networks.Networks{Conn: c},
 		Catalogs:  &catalogs.Catalogs{Conn: c},
