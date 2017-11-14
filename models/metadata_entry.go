@@ -10,7 +10,7 @@ import "encoding/xml"
 type MetadataEntry struct {
 	XMLName    xml.Name           `xml:"MetadataEntry"`
 	Type       string             `xml:"type,attr,omitempty"`
-	Domain     MetadataDomain     `xml:"Domain,omitempty"`
+	Domain     *MetadataDomain    `xml:"Domain,omitempty"`
 	Key        string             `xml:"Key,omitempty"`
 	TypedValue MetadataTypedValue `xml:"TypedValue,omitempty"`
 }

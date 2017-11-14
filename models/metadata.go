@@ -16,12 +16,8 @@ type Metadata struct {
 }
 
 // Add : adds a metadata entry
-func (m *Metadata) Add(domain, visibility, key, value string) {
+func (m *Metadata) Add(key, value string) {
 	e := &MetadataEntry{
-		Domain: MetadataDomain{
-			Visibility: visibility,
-			Value:      domain,
-		},
 		Key: key,
 		TypedValue: MetadataTypedValue{
 			Type:  "MetadataStringValue",
