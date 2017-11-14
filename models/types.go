@@ -16,9 +16,10 @@ type ResourceReference struct {
 }
 
 const (
-	TypeAdminCatalog                     = "application/vnd.vmware.admin.catalog+xml"
-	TypeAdminOrganization                = "application/vnd.vmware.admin.organization+xml"
-	TypeAminVdcTemplates                 = "application/vnd.vmware.admin.vdcTemplates+xml"
+	TypesAdminCatalog                    = "application/vnd.vmware.admin.catalog+xml"
+	TypesAdminNetwork                    = "application/vnd.vmware.admin.network+xml"
+	TypesAdminOrganization               = "application/vnd.vmware.admin.organization+xml"
+	TypesAminVdcTemplates                = "application/vnd.vmware.admin.vdcTemplates+xml"
 	TypesCatalog                         = "application/vnd.vmware.vcloud.catalog+xml"
 	TypesCatalogItem                     = "application/vnd.vmware.vcloud.catalogItem+xml"
 	TypesControlAccess                   = "application/vnd.vmware.vcloud.controlAccess+xml"
