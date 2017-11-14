@@ -43,6 +43,16 @@ func (l Links) ByName(n string) Links {
 	return ls
 }
 
+// Get : gets a link by name
+func (l Links) Get(name string) *Link {
+	for _, x := range l {
+		if x.Name == name {
+			return x
+		}
+	}
+	return nil
+}
+
 // ID : returns the id of the resource
 func (l *Link) ID() string {
 	return trimID(l.Type, l.Href)

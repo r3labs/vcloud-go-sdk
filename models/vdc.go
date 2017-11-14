@@ -25,3 +25,13 @@ type Vdc struct {
 func (v *Vdc) GetID() string {
 	return strings.TrimPrefix(v.ID, "urn:vcloud:vdc:")
 }
+
+// NetworkRefs : returns a list of networks
+func (v *Vdc) NetworkRefs() Links {
+	return v.AvailableNetworks.Networks.ByType(TypesNetwork)
+}
+
+// VAppRefs : returns a list of vapps
+func (v *Vdc) VAppRefs() Links {
+	return v.ResourceEntities.Entities.ByType(TypesVApp)
+}

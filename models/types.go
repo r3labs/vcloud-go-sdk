@@ -149,7 +149,7 @@ func convertType(t string) string {
 		return TypesOrgNetwork
 	}
 
-	return ""
+	return t
 }
 
 func trimID(t, href string) string {

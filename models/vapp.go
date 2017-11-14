@@ -34,3 +34,8 @@ type VApp struct {
 func (v *VApp) GetTasks() []Task {
 	return v.TaskList.Tasks
 }
+
+// Vms : returns a list of vm's
+func (v *VApp) Vms() []*VM {
+	return v.Children.Vms
+}

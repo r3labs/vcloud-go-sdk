@@ -16,3 +16,13 @@ type Org struct {
 	Description string   `xml:"Description,value"`
 	FullName    string   `xml:"FullName,value"`
 }
+
+// VdcRefs : returns a list of vdcs
+func (o *Org) VdcRefs() Links {
+	return o.Links.ByType(TypesVdc)
+}
+
+// CatalogRefs : returns a list of catalogs
+func (o *Org) CatalogRefs() Links {
+	return o.Links.ByType(TypesCatalog)
+}
