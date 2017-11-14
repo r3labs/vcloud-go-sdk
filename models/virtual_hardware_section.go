@@ -25,6 +25,13 @@ type VirtualHardwareSection struct {
 	Items     ResourceList         `xml:"Item"`
 }
 
+// GetCPU : gets the number of cpu cores
+func (v *VirtualHardwareSection) GetCPU() int {
+	cpu := v.Items.ByType("processor")[0]
+	val, _ := strconv.Atoi(cpu.VirtualQuantity.Value)
+	return val
+}
+
 // SetCPU : set number of cpu cores
 func (v *VirtualHardwareSection) SetCPU(cores int) {
 	cpu := v.Items.ByType("processor")[0]
@@ -32,13 +39,20 @@ func (v *VirtualHardwareSection) SetCPU(cores int) {
 	cpu.CoresPerSocket.Value = strconv.Itoa(cores)
 }
 
-// SetRAM : set ram in mb
+// GetRAM : gets the amount of ram in MB
+func (v *VirtualHardwareSection) GetRAM() int {
+	cpu := v.Items.ByType("memory")[0]
+	val, _ := strconv.Atoi(cpu.VirtualQuantity.Value)
+	return val
+}
+
+// SetRAM : set ram in MB
 func (v *VirtualHardwareSection) SetRAM(mb int) {
 	v.Items.ByType("memory")[0].VirtualQuantity.Value = strconv.Itoa(mb)
 }
 
 // AddDisk : adds a disk, capacity in MB
-func (v *VirtualHardwareSection) AddDisk(parent string, capacity int64) {
+func (v *VirtualHardwareSection) AddDisk(parent string, capacity int) {
 	disks := v.Items.ByType("disk-drive")
 	controller := v.Items.ByID(parent)
 	controllerDisks := v.Items.ByParent(parent)
@@ -59,8 +73,8 @@ func (v *VirtualHardwareSection) AddDisk(parent string, capacity int64) {
 		InstanceID:           NewGenericElem("InstanceID", strconv.Itoa(len(disks)+2000)),
 		Parent:               NewGenericElem("Parent", parent),
 		ResourceType:         NewGenericElem("ResourceType", "17"),
-		VirtualQuantity:      NewGenericElem("VirtualQuantity", fmt.Sprintf("%d", capacity*1024)),
-		VirtualQuantityUnits: NewGenericElem("VirtualQuantityUnits", "byte"),
+		VirtualQuantity:      NewGenericElem("VirtualQuantity", fmt.Sprintf("%d", capacity)),
+		VirtualQuantityUnits: NewGenericElem("VirtualQuantityUnits", "MB"),
 	}
 
 	v.Items = append(v.Items, d)
@@ -78,6 +92,11 @@ func (v *VirtualHardwareSection) RemoveDisk(parent, index string) {
 			v.Items = append(v.Items[:i], v.Items[i+1:]...)
 		}
 	}
+}
+
+// GetDiskController : gets the primary disk controller (scsi)
+func (v *VirtualHardwareSection) GetDiskController() *VirtualHardwareItem {
+	return v.Items.ByType("scsi-controller")[0]
 }
 
 // ByID : filter items by id
