@@ -38,3 +38,19 @@ func (e *EdgeGateway) Nat() *NatService {
 func (e *EdgeGateway) LoadBalancer() *LoadBalancerService {
 	return e.Configuration.GatewayServiceConfiguration.LoadBalancerService
 }
+
+// Interfaces : returns the edge gateways interfaces
+func (e *EdgeGateway) Interfaces() []*GatewayInterface {
+	return e.Configuration.GatewayInterfaces.Interfaces
+}
+
+// DefaultInterface : returns the default external interface
+func (e *EdgeGateway) DefaultInterface() *GatewayInterface {
+	for _, iface := range e.Interfaces() {
+		if iface.DefaultRoute {
+			return iface
+		}
+	}
+
+	return nil
+}

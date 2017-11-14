@@ -23,6 +23,9 @@ func (f *FirewallProtocols) Set(protocol string) *FirewallProtocols {
 	switch protocol {
 	case "any":
 		f.Any = &v
+	case "tcp/udp":
+		f.TCP = &v
+		f.UDP = &v
 	case "tcp":
 		f.TCP = &v
 	case "udp":
@@ -34,4 +37,29 @@ func (f *FirewallProtocols) Set(protocol string) *FirewallProtocols {
 	}
 
 	return f
+}
+
+// Get : get the firewall protocol type
+func (f *FirewallProtocols) Get() string {
+	if f.TCP != nil && f.UDP != nil {
+		return "tcp/udp"
+	}
+
+	if f.TCP != nil {
+		return "tcp"
+	}
+
+	if f.UDP != nil {
+		return "udp"
+	}
+
+	if f.ICMP != nil {
+		return "icmp"
+	}
+
+	if f.Any != nil {
+		return "any"
+	}
+
+	return *f.Other
 }
