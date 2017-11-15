@@ -10,9 +10,6 @@ import (
 	"strconv"
 )
 
-// ResourceList ...
-type ResourceList []*VirtualHardwareItem
-
 // VirtualHardwareSection ...
 type VirtualHardwareSection struct {
 	XMLName   xml.Name
@@ -51,33 +48,70 @@ func (v *VirtualHardwareSection) SetRAM(mb int) {
 	v.Items.ByType("memory")[0].VirtualQuantity.Value = strconv.Itoa(mb)
 }
 
-// AddDisk : adds a disk, capacity in MB
-func (v *VirtualHardwareSection) AddDisk(parent string, capacity int) {
-	disks := v.Items.ByType("disk-drive")
-	controller := v.Items.ByID(parent)
-	controllerDisks := v.Items.ByParent(parent)
-
-	hr := &VirtualHardwareHostResource{
-		XMLName:    xml.Name{Local: "HostResource"},
-		BusType:    controller.ResourceType.Value,
-		BusSubType: controller.ResourceSubType.Value,
-		Capacity:   fmt.Sprintf("%d", capacity),
-		Iops:       "0",
+// AddNic : adds a network interface card
+func (v *VirtualHardwareSection) AddNic(nictype, network, ip string, primary bool) {
+	mode := "MANUAL"
+	if ip == "" {
+		mode = "DHCP"
 	}
 
+	nics := v.Items.ByType("ethernet-adapter")
+
+	n := &VirtualHardwareItem{
+		AddressOnParent:     NewGenericElem("AddressOnParent", strconv.Itoa(len(nics))),
+		AutomaticAllocation: NewGenericElem("AutomaticAllocation", "true"),
+		Connection: &VirtualHardwareConnection{
+			XMLName:          xml.Name{Local: "Connection"},
+			IPAddressingMode: mode,
+			IPAddress:        ip,
+			Primary:          &primary,
+		},
+		Description:     NewGenericElem("Description", nictype+` ethernet adapter on `+network),
+		ElementName:     NewGenericElem("ElementName", "Network adapter "+strconv.Itoa(len(nics))),
+		ResourceSubType: NewGenericElem("ResourceSubType", nictype),
+		ResourceType:    NewGenericElem("ResourceType", "10"),
+	}
+
+	v.Items.Insert(n)
+}
+
+// RemoveNic : removes a network interface card by id
+func (v *VirtualHardwareSection) RemoveNic(index string) {
+	for i := len(v.Items) - 1; i >= 0; i-- {
+		item := v.Items[i]
+		if item.ResourceType.Value != "10" {
+			continue
+		}
+
+		if item.AddressOnParent.Value == index {
+			v.Items = append(v.Items[:i], v.Items[i+1:]...)
+		}
+	}
+}
+
+// AddDisk : adds a disk, capacity in MB
+func (v *VirtualHardwareSection) AddDisk(parent, id string, capacity int) {
+	disks := v.Items.ByType("disk-drive")
+	controller := v.Items.ByID(parent)
+
 	d := &VirtualHardwareItem{
-		AddressOnParent:      NewGenericElem("AddressOnParent", strconv.Itoa(len(controllerDisks))),
-		Description:          NewGenericElem("Description", "Hard disk"),
-		ElementName:          NewGenericElem("ElementName", fmt.Sprintf("Hard disk %d", len(disks)+1)),
-		HostResource:         hr,
-		InstanceID:           NewGenericElem("InstanceID", strconv.Itoa(len(disks)+2000)),
+		AddressOnParent: NewGenericElem("AddressOnParent", id),
+		Description:     NewGenericElem("Description", "Hard disk"),
+		ElementName:     NewGenericElem("ElementName", fmt.Sprintf("Hard disk %d", len(disks)+1)),
+		HostResource: &VirtualHardwareHostResource{
+			XMLName:    xml.Name{Local: "HostResource"},
+			BusType:    controller.ResourceType.Value,
+			BusSubType: controller.ResourceSubType.Value,
+			Capacity:   fmt.Sprintf("%d", capacity),
+			Iops:       "0",
+		},
 		Parent:               NewGenericElem("Parent", parent),
 		ResourceType:         NewGenericElem("ResourceType", "17"),
 		VirtualQuantity:      NewGenericElem("VirtualQuantity", fmt.Sprintf("%d", capacity)),
 		VirtualQuantityUnits: NewGenericElem("VirtualQuantityUnits", "MB"),
 	}
 
-	v.Items = append(v.Items, d)
+	v.Items.Insert(d)
 }
 
 // RemoveDisk : removes a disks
@@ -99,46 +133,6 @@ func (v *VirtualHardwareSection) GetDiskController() *VirtualHardwareItem {
 	return v.Items.ByType("scsi-controller")[0]
 }
 
-// ByID : filter items by id
-func (r *ResourceList) ByID(rt string) *VirtualHardwareItem {
-	for i := 0; i < len(*r); i++ {
-		if (*r)[i].InstanceID.Value == rt {
-			return (*r)[i]
-		}
-	}
-
-	return nil
-}
-
-// ByType : filter items by type
-func (r *ResourceList) ByType(rt string) ResourceList {
-	var items ResourceList
-
-	for i := 0; i < len(*r); i++ {
-		if getResourceName((*r)[i].ResourceType.Value) == rt {
-			items = append(items, (*r)[i])
-		}
-	}
-
-	return items
-}
-
-// ByParent : filter items by parent id
-func (r *ResourceList) ByParent(parent string) ResourceList {
-	var items ResourceList
-
-	for i := 0; i < len(*r); i++ {
-		if (*r)[i].Parent == nil {
-			continue
-		}
-		if (*r)[i].Parent.Value == parent {
-			items = append(items, (*r)[i])
-		}
-	}
-
-	return items
-}
-
 // SetXMLNS : sets the xml namespace attributes for the request
 func (v *VirtualHardwareSection) SetXMLNS() {
 	v.XMLNS1 = NamespaceVcloud
@@ -146,6 +140,8 @@ func (v *VirtualHardwareSection) SetXMLNS() {
 	v.Info.XMLName.Local = ElemInfo
 	v.System.XMLName.Local = ElemSystem
 	v.System.SetXMLNS("vssd")
+
+	v.Items.RegenerateDuplicateIDs()
 
 	for _, i := range v.Items {
 		i.XMLName.Local = ElemItem

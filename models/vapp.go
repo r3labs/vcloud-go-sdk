@@ -4,7 +4,10 @@
 
 package models
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+	"strings"
+)
 
 // VApp ...
 type VApp struct {
@@ -28,6 +31,11 @@ type VApp struct {
 		Vms []*VM `xml:"Vm"`
 	} `xml:"Children"`
 	TaskList *TaskList `xml:"Tasks"`
+}
+
+// GetID : returns the vapp's trimmed id
+func (v *VApp) GetID() string {
+	return strings.TrimPrefix(v.ID, "urn:vcloud:vapp:")
 }
 
 // GetTasks ...

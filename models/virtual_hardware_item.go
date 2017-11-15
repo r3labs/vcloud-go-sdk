@@ -18,6 +18,7 @@ type VirtualHardwareItem struct {
 	AddressOnParent         *GenericElem                 `xml:"AddressOnParent"`
 	AutomaticAllocation     *GenericElem                 `xml:"AutomaticAllocation"`
 	AllocationUnits         *GenericElem                 `xml:"AllocationUnits"`
+	Connection              *VirtualHardwareConnection   `xml:"Connection"`
 	Description             *GenericElem                 `xml:"Description"`
 	ElementName             *GenericElem                 `xml:"ElementName"`
 	HostResource            *VirtualHardwareHostResource `xml:"HostResource"`
@@ -53,7 +54,7 @@ func (v *VirtualHardwareItem) SetXMLNS(ns string) {
 		switch x.Type().Field(i).Name {
 		case "CoresPerSocket":
 			*xmlName = xml.Name{Local: "vmw:" + xmlName.Local}
-		case "HostResource":
+		case "HostResource", "Connection":
 			*xmlName = xml.Name{Local: ns + ":" + xmlName.Local}
 			x.Field(i).MethodByName("SetXMLNS").Call([]reflect.Value{})
 		default:
