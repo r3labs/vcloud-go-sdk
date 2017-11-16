@@ -48,47 +48,6 @@ func (v *VirtualHardwareSection) SetRAM(mb int) {
 	v.Items.ByType("memory")[0].VirtualQuantity.Value = strconv.Itoa(mb)
 }
 
-// AddNic : adds a network interface card
-func (v *VirtualHardwareSection) AddNic(nictype, network, ip string, primary bool) {
-	mode := "MANUAL"
-	if ip == "" {
-		mode = "DHCP"
-	}
-
-	nics := v.Items.ByType("ethernet-adapter")
-
-	n := &VirtualHardwareItem{
-		AddressOnParent:     NewGenericElem("AddressOnParent", strconv.Itoa(len(nics))),
-		AutomaticAllocation: NewGenericElem("AutomaticAllocation", "true"),
-		Connection: &VirtualHardwareConnection{
-			XMLName:          xml.Name{Local: "Connection"},
-			IPAddressingMode: mode,
-			IPAddress:        ip,
-			Primary:          &primary,
-		},
-		Description:     NewGenericElem("Description", nictype+` ethernet adapter on `+network),
-		ElementName:     NewGenericElem("ElementName", "Network adapter "+strconv.Itoa(len(nics))),
-		ResourceSubType: NewGenericElem("ResourceSubType", nictype),
-		ResourceType:    NewGenericElem("ResourceType", "10"),
-	}
-
-	v.Items.Insert(n)
-}
-
-// RemoveNic : removes a network interface card by id
-func (v *VirtualHardwareSection) RemoveNic(index string) {
-	for i := len(v.Items) - 1; i >= 0; i-- {
-		item := v.Items[i]
-		if item.ResourceType.Value != "10" {
-			continue
-		}
-
-		if item.AddressOnParent.Value == index {
-			v.Items = append(v.Items[:i], v.Items[i+1:]...)
-		}
-	}
-}
-
 // AddDisk : adds a disk, capacity in MB
 func (v *VirtualHardwareSection) AddDisk(parent, id string, capacity int) {
 	disks := v.Items.ByType("disk-drive")
