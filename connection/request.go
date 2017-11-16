@@ -6,6 +6,8 @@ package connection
 
 import (
 	"bytes"
+	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 )
@@ -31,6 +33,11 @@ func (c *Conn) Request(method, path string, data []byte, headers map[string]stri
 }
 
 func (c *Conn) setupRequest(method, path string, data []byte, headers map[string]string) (*http.Request, error) {
+	if DEBUG {
+		log.Println(method + ": " + path)
+		fmt.Println(string(data))
+	}
+
 	u, err := url.Parse(c.config.URL + path)
 	if err != nil {
 		return nil, err

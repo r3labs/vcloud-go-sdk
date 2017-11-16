@@ -19,7 +19,9 @@ func ReadXML(body io.ReadCloser, x interface{}) error {
 		return err
 	}
 
-	fmt.Println(string(data))
+	if DEBUG {
+		fmt.Println(string(data))
+	}
 
 	return xml.Unmarshal(data, x)
 }

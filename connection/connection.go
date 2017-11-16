@@ -10,6 +10,9 @@ import (
 	"github.com/r3labs/vcloud-go-sdk/config"
 )
 
+// DEBUG : enables debugging of requests
+var DEBUG bool
+
 // Conn : creates a new connection
 type Conn struct {
 	HTTPClient *http.Client
