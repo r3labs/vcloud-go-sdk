@@ -96,12 +96,12 @@ const (
 	BusSubTypeLsiLogicSAS = "lsilogicsas"
 	BusSubTypeVirtualSCSI = "VirtualSCSI"
 
-	PathOrg         = "/api/org"
-	PathVdc         = "/api/vdc"
+	PathOrg         = "/api/org/"
+	PathVdc         = "/api/vdc/"
 	PathVApp        = "/api/vApp/vapp-"
 	PathEdgeGateway = "/api/admin/edgeGateway/"
-	PathOrgNetwork  = "/api/network"
-	PathCatalog     = "/api/catalog"
+	PathOrgNetwork  = "/api/network/"
+	PathCatalog     = "/api/catalog/"
 )
 
 // TypesResources : list of all Hardware Item resource types
