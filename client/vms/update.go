@@ -25,8 +25,6 @@ func (v *Vms) Update(vm *models.VM) (*models.Task, error) {
 		return nil, err
 	}
 
-	fmt.Println(string(data))
-
 	resp, err := v.Conn.Post(path, models.TypesVM, data)
 	if err != nil {
 		return nil, err
