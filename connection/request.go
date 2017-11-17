@@ -34,7 +34,7 @@ func (c *Conn) Request(method, path string, data []byte, headers map[string]stri
 
 func (c *Conn) setupRequest(method, path string, data []byte, headers map[string]string) (*http.Request, error) {
 	if DEBUG {
-		log.Println(method + ": " + path)
+		log.Println("REQUEST " + method + " " + path)
 		fmt.Println(string(data))
 	}
 
