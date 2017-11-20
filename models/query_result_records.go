@@ -16,4 +16,5 @@ type QueryResultRecords struct {
 	VAppRecords        []*QueryVAppRecord          `xml:"VAppRecord"`
 	VdcRecords         []*QueryVdcRecord           `xml:"VdcRecord"`
 	OrgVdcNetworks     []*QueryOrgVdcNetworkRecord `xml:"OrgVdcNetworkRecord"`
+	VAppTemplates      []*QueryVAppTemplateRecord  `xml:"VAppTemplateRecord"`
 }

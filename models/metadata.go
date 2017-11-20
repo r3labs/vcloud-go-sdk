@@ -15,6 +15,16 @@ type Metadata struct {
 	Entries []*MetadataEntry `xml:"MetadataEntry,omitempty"`
 }
 
+// Get : get a metadata entry by Key
+func (m *Metadata) Get(key string) string {
+	for _, entry := range m.Entries {
+		if entry.Key == key {
+			return entry.TypedValue.Value
+		}
+	}
+	return ""
+}
+
 // Add : adds a metadata entry
 func (m *Metadata) Add(key, value string) {
 	e := &MetadataEntry{
