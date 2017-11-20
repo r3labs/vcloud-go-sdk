@@ -28,6 +28,9 @@ func (r *ResourceList) ByType(rt string) ResourceList {
 	var items ResourceList
 
 	for i := 0; i < len(*r); i++ {
+		if (*r)[i].ResourceType == nil {
+			continue
+		}
 		if getResourceName((*r)[i].ResourceType.Value) == rt {
 			items = append(items, (*r)[i])
 		}
@@ -41,6 +44,9 @@ func (r *ResourceList) ByInstanceID(id string) ResourceList {
 	var items ResourceList
 
 	for i := 0; i < len(*r); i++ {
+		if (*r)[i].InstanceID == nil {
+			continue
+		}
 		if (*r)[i].InstanceID.Value == id {
 			items = append(items, (*r)[i])
 		}
@@ -54,6 +60,9 @@ func (r *ResourceList) ByParent(parent string) ResourceList {
 	var items ResourceList
 
 	for i := 0; i < len(*r); i++ {
+		if (*r)[i].Parent == nil {
+			continue
+		}
 		if (*r)[i].Parent.Value == parent {
 			items = append(items, (*r)[i])
 		}
