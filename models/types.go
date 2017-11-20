@@ -96,12 +96,13 @@ const (
 	BusSubTypeLsiLogicSAS = "lsilogicsas"
 	BusSubTypeVirtualSCSI = "VirtualSCSI"
 
-	PathOrg         = "/api/org/"
-	PathVdc         = "/api/vdc/"
-	PathVApp        = "/api/vApp/vapp-"
-	PathEdgeGateway = "/api/admin/edgeGateway/"
-	PathOrgNetwork  = "/api/network/"
-	PathCatalog     = "/api/catalog/"
+	PathOrg          = "/api/org/"
+	PathVdc          = "/api/vdc/"
+	PathVApp         = "/api/vApp/vapp-"
+	PathEdgeGateway  = "/api/admin/edgeGateway/"
+	PathAdminNetwork = "/api/admin/network/"
+	PathOrgNetwork   = "/api/network/"
+	PathCatalog      = "/api/catalog/"
 )
 
 // TypesResources : list of all Hardware Item resource types
@@ -145,8 +146,12 @@ func convertType(t string) string {
 		return TypesCatalog
 	case "gateway":
 		return TypesEdgeGateway
+	case "network":
+		return TypesNetwork
 	case "org-network":
 		return TypesOrgNetwork
+	case "admin-network":
+		return TypesAdminNetwork
 	}
 
 	return t
@@ -166,10 +171,14 @@ func trimID(t, href string) string {
 		prefix = PathVApp
 	case TypesCatalog:
 		prefix = PathCatalog
-	case TypesEdgeGateway:
-		prefix = PathEdgeGateway
+	case TypesNetwork:
+		prefix = PathOrgNetwork
+	case TypesAdminNetwork:
+		prefix = PathAdminNetwork
 	case TypesOrgNetwork:
 		prefix = PathOrgNetwork
+	case TypesEdgeGateway:
+		prefix = PathEdgeGateway
 	}
 
 	return strings.TrimPrefix(p.RequestURI(), prefix)
