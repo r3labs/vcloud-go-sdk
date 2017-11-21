@@ -103,6 +103,8 @@ const (
 	PathAdminNetwork = "/api/admin/network/"
 	PathOrgNetwork   = "/api/network/"
 	PathCatalog      = "/api/catalog/"
+
+	ProtocolAny = "any"
 )
 
 // TypesResources : list of all Hardware Item resource types

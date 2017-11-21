@@ -16,3 +16,27 @@ type GatewayNatRule struct {
 	TranslatedPort string   `xml:"TranslatedPort"`
 	Protocol       string   `xml:"Protocol"`
 }
+
+// GetProtocol ...
+func (g *GatewayNatRule) GetProtocol() string {
+	if g.Protocol == "" {
+		return ProtocolAny
+	}
+	return g.Protocol
+}
+
+// GetOriginalPort ...
+func (g *GatewayNatRule) GetOriginalPort() string {
+	if g.OriginalPort == "" {
+		return ProtocolAny
+	}
+	return g.OriginalPort
+}
+
+// GetTranslatedPort ...
+func (g *GatewayNatRule) GetTranslatedPort() string {
+	if g.TranslatedPort == "" {
+		return ProtocolAny
+	}
+	return g.TranslatedPort
+}
