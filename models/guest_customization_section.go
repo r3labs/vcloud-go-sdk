@@ -25,8 +25,8 @@ type GuestCustomizationSection struct {
 	AdminAutoLogonEnabled bool                 `xml:"AdminAutoLogonEnabled"`
 	AdminAutoLogonCount   string               `xml:"AdminAutoLogonCount"`
 	ResetPasswordRequired bool                 `xml:"ResetPasswordRequired"`
-	ComputerName          string               `xml:"ComputerName"`
 	CustomizationScript   *CustomizationScript `xml:"CustomizationScript,omitempty"`
+	ComputerName          string               `xml:"ComputerName"`
 	Link                  *Link                `xml:"Link"`
 }
 
