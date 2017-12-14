@@ -74,17 +74,14 @@ func (r *ResourceList) ByParent(parent string) ResourceList {
 // Insert : insert into the virtual hardware section, preserving order of hardware types
 func (r *ResourceList) Insert(vhi *VirtualHardwareItem) {
 	rname := getResourceName(vhi.ResourceType.Value)
+	vhi.InstanceID = NewGenericElem("InstanceID", r.NewInstanceIDByType(rname))
 
 	for i, item := range *r {
-		if item.ResourceType.Value != vhi.ResourceType.Value {
-
-			vhi.InstanceID = NewGenericElem("InstanceID", r.NewInstanceIDByType(rname))
+		if item.InstanceID.Value > vhi.InstanceID.Value {
 			(*r) = append((*r)[:i], append(ResourceList{vhi}, (*r)[i:]...)...)
 			return
 		}
 	}
-
-	vhi.InstanceID = NewGenericElem("InstanceID", r.NewInstanceIDByType(rname))
 
 	(*r) = append((*r), vhi)
 }
@@ -107,7 +104,7 @@ func (r *ResourceList) NewInstanceIDByType(rt string) string {
 	items := r.ByType(rt)
 
 	if len(items) < 1 && rt == "disk-drive" {
-		return "3000"
+		return "2000"
 	}
 
 	if len(items) < 1 {
