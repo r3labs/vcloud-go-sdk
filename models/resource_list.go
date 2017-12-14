@@ -73,22 +73,19 @@ func (r *ResourceList) ByParent(parent string) ResourceList {
 
 // Insert : insert into the virtual hardware section, preserving order of hardware types
 func (r *ResourceList) Insert(vhi *VirtualHardwareItem) {
-	var found bool
+	rname := getResourceName(vhi.ResourceType.Value)
 
 	for i, item := range *r {
-		if item.ResourceType.Value == vhi.ResourceType.Value && !found {
-			found = true
-		}
+		if item.ResourceType.Value != vhi.ResourceType.Value {
 
-		if item.ResourceType.Value != vhi.ResourceType.Value && found {
-			rname := getResourceName(vhi.ResourceType.Value)
 			vhi.InstanceID = NewGenericElem("InstanceID", r.NewInstanceIDByType(rname))
 			(*r) = append((*r)[:i], append(ResourceList{vhi}, (*r)[i:]...)...)
 			return
 		}
 	}
 
-	vhi.InstanceID = NewGenericElem("InstanceID", strconv.Itoa(len((*r))))
+	vhi.InstanceID = NewGenericElem("InstanceID", r.NewInstanceIDByType(rname))
+
 	(*r) = append((*r), vhi)
 }
 
@@ -108,6 +105,10 @@ func (r *ResourceList) NewInstanceID() string {
 // NewInstanceIDByType : returns a id that is incremented from the last item in a resource type group
 func (r *ResourceList) NewInstanceIDByType(rt string) string {
 	items := r.ByType(rt)
+
+	if len(items) < 1 && rt == "disk-drive" {
+		return "3000"
+	}
 
 	if len(items) < 1 {
 		return r.NewInstanceID()
